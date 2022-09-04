@@ -1,0 +1,68 @@
+@charset 'utf-8';
+
+@font-face {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 100;
+    src: local('※'),
+        url('../font/Merriweather-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 200;
+    src: local('※'),
+        url('../font/Merriweather-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 300;
+    src: local('※'),
+        url('../font/Merriweather-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo';
+    font-style: bold;
+    font-weight: 900;
+    src: local('※'),
+        url('../font/SpoqaHanSansNeo-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo';
+    font-style: bold;
+    font-weight: 800;
+    src: local('※'),
+        url('../font/SpoqaHanSansNeo-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo';
+    font-style: bold;
+    font-weight: 700;
+    src: local('※'),
+        url('../font/SpoqaHanSansNeo-Regular.otf') format('opentype');       
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo';
+    font-style: bold;
+    font-weight: 600;
+    src: local('※'),
+        url('../font/SpoqaHanSansNeo-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo';
+    font-style: bold;
+    font-weight: 500;
+    src: local('※'),
+        url('../font/SpoqaHanSansNeo-Thin.otf') format('opentype');
+}
+
+
+  
