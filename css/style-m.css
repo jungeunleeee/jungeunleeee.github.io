@@ -258,33 +258,53 @@ text-align: left; box-sizing: border-box;}
 #work > div.content-box > .text-title {text-align: left;}
 #work > div.content-box > .text-title > div {font-size: 30px; margin-bottom: 6px; font-weight: 900; color: rgba(30, 75, 115, 1);}
 #work > div.content-box > .text-title > div > em  {color:  #ea273e;}
-#work > div.content-box > div.banner-slide {margin-top: 100px; position: relative;}
-#work > div.content-box > div.banner-slide  > div.box {position: relative; width: 100%;  overflow: hidden; padding: 5px; box-sizing: border-box;}
-#work > div.content-box > div.banner-slide  > div.box > ul {width: 10000px; position: relative; height: 100%;}
+#work > div.content-box > div.banner-slide {position: relative;  margin: 60px auto; width: 100%;  box-sizing: border-box;}
+#work > div.content-box > div.banner-slide  > div.box {position: relative; box-sizing: border-box; overflow: hidden;}
+#work > div.content-box > div.banner-slide  > div.box > ul {width: 10000px; position: relative; }
 #work > div.content-box > div.banner-slide  > div.box > ul::after {content:''; display: block; clear: both;}
-#work > div.content-box > div.banner-slide  > div.box > ul > li {float: left; width: 315px; background-color: #fff; border-radius: 10px;  box-shadow: 0 2px 8px 0 rgb(216 218 235 / 60%);}
-#work > div.content-box > div.banner-slide  > div.box > ul > li + li {margin-left: 81px;}
+ #work > div.content-box > div.banner-slide  > div.box > ul > li {float: left; width: 345px; min-height: 640px; background-color: #fff; border-radius: 10px; box-sizing: border-box; margin-right: 60px;
+  box-shadow: inset 0 2px 8px 0 rgb(216 218 235 / 60%);
+}
+#work > div.content-box > div.banner-slide  > div.box > ul > li:last-child {margin-right: 0;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li {}
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big {height: 240px; width: 100%;  overflow: hidden; border-top-left-radius: 10px; border-top-right-radius: 10px; }
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > img {width: 100%; height: auto; transition: all 0.5s;}
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big:hover > img {transform: scale(1.1);}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big {height: 240px; width: 100%;  overflow: hidden; border-top-left-radius: 10px; border-top-right-radius: 10px; position: relative; border-bottom: 1px solid rgb(216 218 235 / 60%);}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a {display: block;  width: 100%; height: 100%;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a > img {width: 100%; transition: all 0.5s;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li:nth-child(2) > div.image-big > a > img {height: 100%;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a:hover > img {transform: scale(1.1);}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text { padding: 20px; box-sizing: border-box; width: 100%;}
-#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > p.title {font-size: 18px; font-weight: 900; color: rgba(30, 75, 115, 1);}
+#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > p.title {font-size: 23px; font-weight: 900; color: rgba(30, 75, 115, 1);}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li + li {margin-top: 5px;}
-#work > div.content-box > div.banner-slide  ul > li > div.text > ul > li:first-child {margin: 6px 0 12px; font-weight: 900; font-size: 15px; }
+#work > div.content-box > div.banner-slide  ul > li > div.text > ul > li:first-child {margin: 6px 0 12px; font-weight: 900; font-size: 18px; }
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:first-child > span {display: inline;}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li > span  {display: block; line-height: 2;}
+#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li > span.sub-c {font-size: 12px;}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li > span.sub-t {font-size: 14px; font-weight: 900;}
-#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li > a.btn {float: left;} 
-#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:last-child {overflow: hidden;}
+#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:nth-child(4) > span.sub-c { min-height: 60px;}
+#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:nth-child(5) {margin-top: 10px; overflow: hidden;}
 
+/* control: prev, next */
+#work p.control {margin-top: 20px;}
+#work p.control::after {content: ''; display: block; clear: both;}
+#work p.control > a {display: block; padding: 10px 20px; width: 80px; text-align: center; box-shadow: inset 0 2px 8px 0 rgb(216 218 235 / 60%); width: 80px; box-sizing: border-box; border-radius: 10px;  transition: all 0.5s;}
+#work p.control > a:hover {background: rgb(216 218 235 / 60%);}
+#work p.control > a.prev {float: left;}
+#work p.control > a.next{float: right; margin-left: 20px;}
+
+
+/* 버튼 크기 */
+#work > div.content-box > div.banner-slide  > div.box > ul > li a.btn { width: 140px;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li a:nth-child(1) {float: left;}
+ul > li a:nth-child(2) {float: right;}
 
 /* animation 작동 */
 #work > div.content-box > .text-title > div,
-#work > div.content-box > div.box > ul > li {position: relative; animation: mainTextHide 1s ease 0s 1 normal forwards; opacity: 0;} 
+#work > div.content-box  div.box > ul > li,
+#work > div.content-box p.control {position: relative; animation: mainTextHide 1s ease 0s 1 normal forwards; opacity: 0;} 
 
 #work.on > div.content-box > .text-title > div {animation: mainText 1s ease 0s 1 normal forwards;}
-#work.on > div.content-box > div.box > ul > li {animation: mainText 1s ease 0.5s 1 normal forwards;}
+#work.on > div.content-box  div.box > ul > li,
+#work > div.content-box p.control {animation: mainText 1s ease 0.5s 1 normal forwards;}
 
 
 /* section4: contact */
@@ -304,3 +324,29 @@ text-align: left; box-sizing: border-box;}
 
 #contact.on > div.content-box > h2 {animation: mainText 1s ease 0s 1 normal forwards;}
 #contact.on > div.content-box > div.button {animation: mainText 1s ease 0.4s 1 normal forwards;}
+
+/* media-query */
+@media (min-width: 375px) {
+   #work > div.content-box > div.banner-slide  > div.box > ul > li {
+    width: 335px;
+  }
+}
+
+@media (min-width: 393px) {
+   #work > div.content-box > div.banner-slide  > div.box > ul > li {
+    width: 353px;
+  }
+}
+
+@media (min-width: 412px) {
+   #work > div.content-box > div.banner-slide  > div.box > ul > li {
+    width: 375px;
+  }
+}
+
+@media (min-width: 820px) {
+   #work > div.content-box > div.banner-slide  > div.box > ul > li {
+    width: 359px;
+   }
+
+}

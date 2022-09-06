@@ -105,7 +105,7 @@ $(document).ready(function () {
 
   function setBannerSlide(selector) {
     var $selector = $(selector);
-    var numBanner = 0;
+    var numBanner = $selector.find('.banner > li').length;
     var bannerNow = 1;
     var bannerPrev = 0;
     var bannerNext = 0;
@@ -114,10 +114,17 @@ $(document).ready(function () {
     var widthBar = 0;
     var offsetLeftMin = 0;
     var loadCounter = 0;
+    var startX = 0;
+    var startY = 0;
+    var delX = 0;
+    var delY = 0;
+    var offsetX = 0;
+    var offsetY = 0;
 
     setTimeout(function () {
       setStatus();
     }, 800);
+
 
     $selector.find('.banner li img').on('load', function () {
       loadCounter++;
@@ -142,10 +149,98 @@ $(document).ready(function () {
       }
     });
 
-    $selector.find('.control a.next').on('click', function() {
+    // $selector.find('ul.banner').on('mousedown', function(e) {
+    //   e.preventDefault();
+
+    //   isBlocked = true;
+    //   // 처음클릭한 좌표 값
+    //   startX = e.clientX;
+    //   startY = e.clientY;
+    //   offsetX = $(this).position().left;
+    //   offsetY = $(this).position().top;
+    //   // console.log(offsetLeft + '/' + offsetY);
+
+    //   $selector.find('ul.banner').on('mousemove', function(e) {
+    //     delX = e.clientX - startX;
+    //     // 세로로 움직인 값은 저장하지마.
+    //     delY = e.clientY - startY;
+    //     delY = 0;
+
+    //     console.log(delX + '/' + delY);
+
+    //   });
+    // });
+
+    $selector.find('ul.banner').on('mousedown', function (e) {
+      e.preventDefault();
+      $(this).css({
+        'transition': 'none'
+      });
+
+      // 초기설정
+      isBlocked = true;
+      // 처음 마우스를 눌렀을 때의 좌표값
+      startX = e.clientX;
+      startY = e.clientY;
+      // ul.banner의 처음 좌표값
+      offsetX = $(this).position().left;
+      offsetY = $(this).position().top;
+
+      $(document).on('mousemove', function (e) {
+        // 움직인 거리 구하기
+        delX = e.clientX - startX;
+        delY = e.clientY - startY;
+        delY = 0;
+
+        if ((bannerNow === 1 && delX > 0) || (bannerNow === numBanner && delX < 0)) {
+          delX = delY / 10;
+        }
+
+        // ul.banner의 현재 값 저장
+        $selector.find('ul.banner').css({
+          'left': (offsetX + delX) + 'px',
+          // // 지금 사용하지 않아도됨: 가로만 움직이면 되기에
+          // 'top' : (offsetY + delY) + 'px'
+        });
+        if (Math.abs(delX > 5) || Math.abs(delY > 5)) {
+          isBlocked = true;
+        }
+      });
+
+      // mouse를 누르다가 떼었을 때
+      $(document).on('mouseup', function (e) {
+        $(document).off('mousemove mouseup');
+        if (delX < -50 && bannerNow !== numBanner) {
+          showBanner(bannerNext);
+        } else if (delX > 50 && bannerNow !== 1) {
+          showBanner(bannerPrev);
+        } else {
+          showBanner(bannerNow);
+        }
+        delX = delY = 0;
+      });
+
+      // ul.banner을 클릭했을 때 이벤트가 작동하지 않게 하기 위해서
+      $selector.find('ul.banner').on('click', function (e) {
+        if (isBlocked === true) {
+          e.preventDefault();
+          isBlocked = false;
+        }
+      });
+
+
+    });
+
+    $selector.find('.control a.next').on('click', function () {
       if (bannerNow === numBanner) {
-        $selector.find('.banner').css({'transition': 'left 0.05s', 'left': (offsetLeftMin - 10) + 'px'}).one('transitionend', function() {
-          $(this).css({'transition': 'left 0.1s', 'left': offsetLeftMin + 'px'});
+        $selector.find('.banner').css({
+          'transition': 'left 0.05s',
+          'left': (offsetLeftMin - 10) + 'px'
+        }).one('transitionend', function () {
+          $(this).css({
+            'transition': 'left 0.1s',
+            'left': offsetLeftMin + 'px'
+          });
         });
       } else {
         showBanner(bannerNext);
@@ -156,7 +251,6 @@ $(document).ready(function () {
     $(window).on('resize', function () {
       setStatus();
     });
-
 
     function showBanner(n) {
       offsetLeft = -$selector.find('.banner > li:eq(' + (n - 1) + ')').position().left;
@@ -182,7 +276,7 @@ $(document).ready(function () {
       });
       offsetLeftMin = widthBox - widthBar;
       $selector.find('.banner').css({
-        'width': (widthBar+5) + 'px'
+        'width': (widthBar + 5) + 'px'
       });
 
       $selector.find('.banner > li').each(function (i) {
@@ -197,6 +291,7 @@ $(document).ready(function () {
 
 
     }
+
   }
 
 
