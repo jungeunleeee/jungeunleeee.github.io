@@ -270,16 +270,20 @@ text-align: left; box-sizing: border-box;}
 #work > div.content-box > .text-title {text-align: left;}
 #work > div.content-box > .text-title > div {font-size: 50px; margin-bottom: 6px; font-weight: 900; color: rgba(30, 75, 115, 1);}
 #work > div.content-box > .text-title > div > em {color:  #ea273e;}
-#work > div.content-box > div.banner-slide {margin-top: 100px; position: relative;}
-#work > div.content-box > div.banner-slide  > div.box {position: relative; width: 90%;  overflow: hidden; padding: 10px; box-sizing: border-box; margin: 0 auto;}
-#work > div.content-box > div.banner-slide  > div.box > ul {width: 10000px;}
+#work > div.content-box > div.banner-slide {margin-top: 100px; position: relative;  margin: 80px auto; max-width: 1440px; background-color: skyblue;}
+#work > div.content-box > div.banner-slide  > div.box {position: relative; box-sizing: border-box; background-color: red; overflow: hidden;}
+#work > div.content-box > div.banner-slide  > div.box > ul {width: 10000px; position: relative; }
 #work > div.content-box > div.banner-slide  > div.box > ul::after {content:''; display: block; clear: both;}
-#work > div.content-box > div.banner-slide  > div.box > ul > li {float: left; width: 440px; background-color: #fff; border-radius: 10px;  box-shadow: 0 2px 8px 0 rgb(216 218 235 / 60%);}
-#work > div.content-box > div.banner-slide  > div.box > ul > li + li {margin-left: 50px;}
+ #work > div.content-box > div.banner-slide  > div.box > ul > li {float: left; width: 440px; min-height: 640px; background-color: #fff; border-radius: 10px;border: 2px solid black; box-sizing: border-box; margin-right: 60px;
+  /* box-shadow: 0 2px 8px 0 rgb(216 218 235 / 60%); */
+}
+#work > div.content-box > div.banner-slide  > div.box > ul > li:last-child {margin-right: 0;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li {}
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big {height: 240px; width: 100%;  overflow: hidden; border-top-left-radius: 10px; border-top-right-radius: 10px; }
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > img {width: 100%; height: auto; transition: all 0.5s;}
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big:hover > img {transform: scale(1.1);}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big {height: 240px; width: 100%;  overflow: hidden; border-top-left-radius: 10px; border-top-right-radius: 10px; position: relative; border-bottom: 1px solid rgb(216 218 235 / 60%); }
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a {display: block; background-color: red; width: 100%; height: 100%;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a > img {width: 100%; transition: all 0.5s;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li:nth-child(2) > div.image-big > a > img {height: 100%;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a:hover > img {transform: scale(1.1);}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text { padding: 20px; box-sizing: border-box; width: 100%;}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > p.title {font-size: 23px; font-weight: 900; color: rgba(30, 75, 115, 1);}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li + li {margin-top: 5px;}
@@ -287,6 +291,8 @@ text-align: left; box-sizing: border-box;}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:first-child > span {display: inline;}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li > span  {display: block; line-height: 2;}
 #work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li > span.sub-t {font-size: 14px; font-weight: 900;}
+#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:nth-child(4) > span.sub-c { min-height: 60px;}
+#work div.content-box > div.banner-slide  > div.box > ul > li > div.text > ul > li:nth-child(5) {margin-top: 20px;}
 
 #work div.content-box  div.banner-slide  .control {opacity: 0;}
 #work div.content-box  div.banner-slide  .control > a {width: 50px; height: 50px;  display: block; border: 2px solid rgba(0, 0, 0, 0.7); transition: all 0.3s; }
@@ -294,8 +300,8 @@ text-align: left; box-sizing: border-box;}
 #work div.content-box  div.banner-slide  .control > a > span {position: absolute; left: -9999px;}
 #work div.content-box  div.banner-slide  .control > a.prev,
 #work div.content-box  div.banner-slide  .control > a.next {position: absolute; top: 50%; transform: translate(0, -50%) rotate(45deg);}
-#work div.content-box  div.banner-slide  .control > a.prev {left: 30px; border-top: solid transparent; border-right: solid transparent;}
-#work div.content-box  div.banner-slide  .control > a.next {right: 30px ;border-bottom: solid transparent; border-left: solid transparent;}
+#work div.content-box  div.banner-slide  .control > a.prev {left: -50px; border-top: solid transparent; border-right: solid transparent;}
+#work div.content-box  div.banner-slide  .control > a.next {right: -50px ;border-bottom: solid transparent; border-left: solid transparent;}
 
 /* animation 작동 */
 #work > div.content-box > .text-title > div,

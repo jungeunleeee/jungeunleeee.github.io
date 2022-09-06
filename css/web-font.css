@@ -1,4 +1,4 @@
-@charset 'utf-8';
+@charset "utf-8";
 
 @font-face {
     font-family: 'Merriweather';
@@ -29,7 +29,7 @@
     font-style: bold;
     font-weight: 900;
     src: local('※'),
-        url('../font/SpoqaHanSansNeo-Bold.otf') format('opentype');
+        url('../font/SpoqaHanSansNeo-Bold.woff') format('woff');
 }
 
 @font-face {
@@ -37,7 +37,7 @@
     font-style: bold;
     font-weight: 800;
     src: local('※'),
-        url('../font/SpoqaHanSansNeo-Medium.otf') format('opentype');
+        url('../font/SpoqaHanSansNeo-Medium.woff') format('woff');
 }
 
 @font-face {
@@ -45,7 +45,7 @@
     font-style: bold;
     font-weight: 700;
     src: local('※'),
-        url('../font/SpoqaHanSansNeo-Regular.otf') format('opentype');       
+        url('../font/SpoqaHanSansNeo-Regular.woff') format('woff');       
 }
 
 @font-face {
@@ -53,7 +53,7 @@
     font-style: bold;
     font-weight: 600;
     src: local('※'),
-        url('../font/SpoqaHanSansNeo-Light.otf') format('opentype');
+        url('../font/SpoqaHanSansNeo-Light.woff') format('woff');
 }
 
 @font-face {
@@ -61,7 +61,7 @@
     font-style: bold;
     font-weight: 500;
     src: local('※'),
-        url('../font/SpoqaHanSansNeo-Thin.otf') format('opentype');
+        url('../font/SpoqaHanSansNeo-Thin.woff') format('woff');
 }
 
 
