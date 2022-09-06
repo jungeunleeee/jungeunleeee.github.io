@@ -272,7 +272,7 @@ text-align: left; box-sizing: border-box;}
 #work > div.content-box > .text-title > div > em {color:  #ea273e;}
 #work > div.content-box > div.banner-slide {position: relative;  margin: 60px auto; max-width: 1440px;}
 #work > div.content-box > div.banner-slide  > div.box {position: relative; box-sizing: border-box; overflow: hidden;}
-#work > div.content-box > div.banner-slide  > div.box > ul {width: 10000px; position: relative;background-color: skyblue; }
+#work > div.content-box > div.banner-slide  > div.box > ul {width: 10000px; position: relative;}
 #work > div.content-box > div.banner-slide  > div.box > ul::after {content:''; display: block; clear: both;}
  #work > div.content-box > div.banner-slide  > div.box > ul > li {float: left; width: 440px; min-height: 640px; background-color: #fff; border-radius: 10px; box-sizing: border-box; margin-right: 60px;
   box-shadow: inset 0 2px 8px 0 rgb(216 218 235 / 60%);
@@ -280,7 +280,7 @@ text-align: left; box-sizing: border-box;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li:last-child {margin-right: 0;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li {}
 #work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big {height: 240px; width: 100%;  overflow: hidden; border-top-left-radius: 10px; border-top-right-radius: 10px; position: relative; border-bottom: 1px solid rgb(216 218 235 / 60%); }
-#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a {display: block; background-color: red; width: 100%; height: 100%;}
+#work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a {display: block; width: 100%; height: 100%;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a > img {width: 100%; transition: all 0.5s;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li:nth-child(2) > div.image-big > a > img {height: 100%;}
 #work > div.content-box > div.banner-slide  > div.box > ul > li > div.image-big > a:hover > img {transform: scale(1.1);}
