@@ -30,7 +30,7 @@ body {font-family:  'SpoqaHanSansNeo' ; font-size: 14px; color: #333333; backgro
 /* body */
 a.btn.blue {box-sizing: border-box;  border: 1px solid rgba(30, 75, 115, 1); font-size: 13px; color: rgba(30, 75, 115, 1); background-color: #fff; display: inline-block; padding: 10px 15px; text-align: center; transition: all 0.3s; font-weight: 700; width: 130px; border-radius: 8px;}
 a.btn + a.btn {margin-left: 15px;}
-a.btn.blue:hover {color: #fff; background-color: rgba(30, 75, 115, 1);}
+
 
 /* section: common */
 section {width: 100%; height: 100vh; padding: 65px 0 100px; box-sizing: border-box;  }
