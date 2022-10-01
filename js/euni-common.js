@@ -200,14 +200,6 @@ function setBannerSlide(selector) {
       delX = delY = 0;
     });
 
-    // ul.banner을 클릭했을 때 이벤트가 작동하지 않게 하기 위해서: 오류 발생으로 인해 잠시 보수중
-    // $selector.find('ul.banner').on('click', function (e) {
-    //   if (isBlocked === true) {
-    //     e.preventDefault();
-    //     isBlocked = false;
-    //   } 
-    // });
-
   });
 
   $selector.find('.control a.next').on('click', function () {
