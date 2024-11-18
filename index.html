@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link rel="icon" sizes="16x16" href="resources/images/prokids_favicon.png">
     <!-- css -->
     <link rel="stylesheet" href="resources/css/style.css">
 
@@ -131,21 +131,21 @@
         <div id="fullpage">
             <!-- 4. Learning Points : 퀴즈로 마무리하는 동화읽기  -->
             <section id="sec4" class="section active">
-            <div class="inner-wrap">
-            <div class="desc-wrap regular-ver">
-              <span>Learning Points</span>
-              <h3 data-translate="sec4_title">퀴즈로 마무리하는 동화읽기</h3>
-              <p data-translate="sec4_desc">
-                동화를 다 읽은 후 퀴즈로 독서를 마무리해요!<br/>
-                각 이야기를 기반으로 구성된 퀴즈는 아이들이 이야기를<br/>
-                기억하고 이해하는 데 도움을 주며 사고력을 자극합니다.
-              </p>
-            </div>
-            <div class="image-wrap">
-              <img src="resources/images/contents/sec4_phone1.png" class="pc-only" alt="" />
-              <img src="resources/images/contents/sec4_phone1_r.svg" class="mobile-only" alt="" />
-            </div>
-            </div>
+                <div class="inner-wrap">
+                    <div class="desc-wrap regular-ver">
+                        <span>Learning Points</span>
+                        <h3 data-translate="sec4_title">퀴즈로 마무리하는 동화읽기</h3>
+                        <p data-translate="sec4_desc">
+                            동화를 다 읽은 후 퀴즈로 독서를 마무리해요!<br/>
+                            각 이야기를 기반으로 구성된 퀴즈는 아이들이 이야기를<br/>
+                            기억하고 이해하는 데 도움을 주며 사고력을 자극합니다.
+                        </p>
+                    </div>
+                    <div class="image-wrap">
+                        <img src="resources/images/contents/sec4_phone1.png" class="pc-only" alt="" />
+                        <img src="resources/images/contents/sec4_phone1_r.svg" class="mobile-only" alt="" />
+                    </div>
+                </div>
             </section>
             <!-- // 4. Learning Points : 퀴즈로 마무리하는 동화읽기  -->
 
@@ -321,7 +321,7 @@
     }
 
     /* sec2 : 요소가 떨어지는 에니메이션 적용 */
-    const imageWrap = document.querySelector('#sec2 .image-wrap');
+    /*const imageWrap = document.querySelector('#sec2 .image-wrap');
     const firstImage = document.querySelector('#sec2 .image-wrap .first');
     const secondImage = document.querySelector('#sec2 .image-wrap .second');
     const firstScreen = document.querySelector('#sec2 .phone-wrap .first');
@@ -332,12 +332,13 @@
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
+      const aa = document.getElementById('sec2')
       const animationWrap = document.querySelector('.animation-wrap');
       const animationTop = animationWrap.getBoundingClientRect().top + window.scrollY;
       const cardHeight = document.querySelector('.animation-wrap .image-wrap').offsetHeight
       const triggerPoint = animationTop
       const changePoint = triggerPoint + 10;
-      console.log(scrollY)
+      console.log(scrollY,aa.getBoundingClientRect().top)
       console.log('triggerPoint',triggerPoint)
       console.log('changePoint',changePoint)
       // 1. 스크롤이 이미지 교체 영역에 있는 경우 처리
@@ -389,7 +390,163 @@
 
       // 4. 스크롤 방향 업데이트
       lastScrollY = scrollY;
+    });*/
+
+    /*const imageWrap = document.querySelector('#sec2 .image-wrap');
+    const firstImage = document.querySelector('#sec2 .image-wrap .first');
+    const secondImage = document.querySelector('#sec2 .image-wrap .second');
+    const firstScreen = document.querySelector('#sec2 .phone-wrap .first');
+    const secondScreen = document.querySelector('#sec2 .phone-wrap .second');
+
+    let lastScrollY = 0; // 이전 스크롤 값 저장 (스크롤 방향 확인용)
+    let screenSwitched = false; // screen 전환 여부 상태
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const aa = document.getElementById('sec2')
+      const animationWrap = document.querySelector('.animation-wrap');
+      const animationTop = animationWrap.getBoundingClientRect().top + window.scrollY;
+      const cardHeight = document.querySelector('.animation-wrap .image-wrap').offsetHeight
+      const triggerPoint = animationTop
+      const changePoint = triggerPoint + 10;
+      console.log(scrollY,aa.getBoundingClientRect().top)
+      console.log('triggerPoint',triggerPoint)
+      console.log('changePoint',changePoint)
+      // 1. 스크롤이 이미지 교체 영역에 있는 경우 처리
+      if (scrollY >= triggerPoint && scrollY <= changePoint) {
+        const distance = changePoint - triggerPoint + 600;
+        const topValue = ((scrollY - triggerPoint) / distance) * 978;
+        imageWrap.style.top = `${topValue}px`;
+
+        firstImage.style.opacity = 1;
+        secondImage.style.opacity = 0;
+
+        // 스크린 전환 상태를 리셋
+        screenSwitched = false;
+        firstScreen.style.opacity = 1;
+        // 두 번째 이미지로 전환되면 on 클래스 추가
+        secondScreen.style.opacity = 0;
+      }
+
+      // 2. 스크롤이 교체 완료 지점에 도달한 경우
+      if (scrollY > changePoint && !screenSwitched) {
+        const moveTop = animationWrap.offsetHeight - cardHeight -20  + 'px'
+        imageWrap.style.top = moveTop;
+        firstImage.style.opacity = 0;
+        secondImage.style.opacity = 1;
+        // 스크린 전환 처리 (1.5초 지연 후 실행)
+        setTimeout(() => {
+          if (scrollY > changePoint) { // 스크롤 상태를 다시 확인하여 처리
+            firstScreen.style.opacity = 0;
+            secondScreen.style.opacity = 1;
+            screenSwitched = true; // 전환 완료 상태 업데이트
+          }
+          // 또 다른 timeout을 설정해 secondScreen의 opacity를 0으로 변경
+          setTimeout(() => {
+            secondImage.style.opacity = 0;
+          }, 0); // 원하는 대기 시간을 설정할 수 있습니다.
+        }, 1500);
+      }
+
+      // 3. 스크롤이 다시 올라갈 때 초기화 처리
+      if (scrollY < triggerPoint) {
+        imageWrap.style.top = '0';
+        firstImage.style.opacity = 1;
+        secondImage.style.opacity = 0;
+        firstScreen.style.opacity = 1;
+        secondScreen.style.opacity = 0;
+        document.querySelector('#sec2 .animation-wrap').classList.remove('on')
+        screenSwitched = false; // 전환 상태 리셋
+      }
+
+      // 4. 스크롤 방향 업데이트
+      lastScrollY = scrollY;
+    });*/
+    let reachedChangePoint = false; // 기준 지점 도달 여부를 추적
+    let screenSwitched = false; // 이미지 전환 상태
+    let lastScrollY = 0; // 마지막 스크롤 위치를 추적
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const sec2 = document.getElementById('sec2');
+      const imageWrap = document.querySelector('#sec2 .image-wrap');
+      const firstImage = imageWrap.querySelector('.first');
+      const secondImage = imageWrap.querySelector('.second');
+      const firstScreen = document.querySelector('#sec2 .phone-wrap .first');
+      const secondScreen = document.querySelector('#sec2 .phone-wrap .second');
+      const animationWrap = document.querySelector('.animation-wrap');
+      const sec2Rect = sec2.getBoundingClientRect();
+      const changePointOffset = sec2.offsetTop + (animationWrap.clientHeight * 0.3); // 기준 지점
+
+      // sec2가 화면에 보일 때
+      if (sec2Rect.top <= window.innerHeight && sec2Rect.bottom >= 0) {
+        let offset = scrollY - sec2.offsetTop;
+        const maxOffset = animationWrap.clientHeight - imageWrap.clientHeight;
+        offset = Math.min(Math.max(0, offset), maxOffset);
+
+        // 이동 속도를 부드럽게 만들어주는 비율 적용
+        const speedFactor = 0.3; // 속도 비율을 조정 (0.1~0.5로 실험)
+        offset = Math.min(Math.max(0, offset), maxOffset);
+        const smoothOffset = offset * speedFactor;
+
+        imageWrap.style.position = 'absolute';
+        imageWrap.style.top = `${smoothOffset}px`;
+
+        // 내려갈 때 이미지 전환 (기준 지점 도달 전)
+        if (scrollY < changePointOffset) {
+          firstImage.style.opacity = 1;
+          secondImage.style.opacity = 0;
+          reachedChangePoint = false;
+          screenSwitched = false;
+
+          // 화면 전환 복원 (역스크롤 시)
+          if (scrollY < lastScrollY) { // 스크롤이 위로 올라가면
+            firstScreen.style.opacity = 1;
+            secondScreen.style.opacity = 0;
+          }
+        }
+
+        // 기준 지점 도달 시 secondImage로 전환
+        if (scrollY >= changePointOffset && !screenSwitched) {
+          firstImage.style.opacity = 0;
+          secondImage.style.opacity = 1;
+          screenSwitched = true; // 이미지 전환 완료 상태
+          reachedChangePoint = true;
+
+          // 전환된 후 첫 번째 스크린 숨기고 두 번째 스크린 표시
+          // firstScreen.style.opacity = 0;
+          // secondScreen.style.opacity = 1;
+
+          // 1.5초 지연 후 화면 전환 애니메이션
+          setTimeout(() => {
+            secondImage.style.opacity = 0;
+            firstScreen.style.opacity = 0;
+            secondScreen.style.opacity = 1;
+          }, 1250);
+        }
+
+        // 전환 이후 스크롤이 더 내려가면 secondImage 유지
+        if (reachedChangePoint && scrollY >= changePointOffset + 50) {
+          imageWrap.style.top = `${maxOffset}px`; // 이미지 위치를 끝까지 고정
+        }
+      }
+
+      // 역스크롤 처리: 스크롤을 올리면 처음 상태로 복원
+      if (scrollY < changePointOffset && screenSwitched) {
+        firstImage.style.opacity = 1;
+        secondImage.style.opacity = 0;
+        firstScreen.style.opacity = 1;
+        secondScreen.style.opacity = 0;
+        screenSwitched = false; // 상태를 초기화하여 다시 전환 가능하도록 함
+        reachedChangePoint = false;
+      }
+
+      // 마지막 스크롤 위치 갱신
+      lastScrollY = scrollY;
     });
+
+
+
 
     /* sec3 : 요소가 펼처지는 애니메이션 적용 */
     var slideImages = document.querySelectorAll('.slide-image');
@@ -621,6 +778,15 @@
           gsap.killTweensOf(path); // 각 path 요소에 대해 애니메이션을 중지
         });
       }
+
+      /* if (pageNow === 1) {
+       } else {
+         return false;
+       }
+       pageNow = n;
+       pagePrev = (n <= 1) ? 1 : (n - 1);
+       pageNext = (n >= numPage) ? numPage : (n + 1);
+       console.log(pagePrev + '/' + pageNow + '/' + pageNext);*/
     }
     function scrollSlide() {
       window.addEventListener('scroll', checkPageNow);

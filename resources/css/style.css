@@ -198,8 +198,8 @@ footer .logo-wrap{padding-bottom:28px;border-bottom: 1px solid #ccced2;margin-bo
 #sec2 .phone-wrap{width:945px;height:464px;position:absolute;left:50%;bottom:0;transform:translateX(-50%);/*background:url("/resources/images/contents/sec2_phone_2.png") center center no-repeat;background-size: contain;*/}
 #sec2 .phone-wrap::before{content:'';width:881px;height:437px;background:url("/resources/images/contents/sec2_phone_bg.svg") center center no-repeat;background-size:contain;position:absolute;right:14px;top:123px;z-index: -1;}
 #sec2 .phone-wrap > img{position: absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index: 1;width:94%;}
-#sec2 .phone-wrap .screen{transition: opacity 1.5s ease-in-out;}
-
+#sec2 .phone-wrap .screen{transition: opacity 1s ease-in-out;}
+#sec2 .phone-wrap .screen.second{opacity: 0;}
 #sec2.on .desc-wrap > span {animation: fadeIn 0.3s ease forwards;}
 #sec2.on .desc-wrap > h3 {animation: fadeIn 0.3s ease forwards;}
 #sec2.on .desc-wrap > p {animation: fadeIn 0.3s ease 0.3s forwards;}
@@ -359,7 +359,7 @@ h2.sub-title{text-align:center;font-size:40px;font-weight:600;color:#151515;marg
 /* Contact 페이지 */
 .title-wrap {display:flex;justify-content:center;}
 .title-wrap > div {display:inline-block;position:relative;}
-.title-wrap  h2.sub-title.ver2 {font-size:50px;font-weight:700;color:#33BB9A;}
+.title-wrap  h2.sub-title.ver2 {font-size:50px;font-weight:700;color:#33BB9A;margin-bottom:24px;}
 .title-wrap  span {display:block;font-size: 32px;font-weight:500;color:#000;text-align:center;}
 .contact-box {margin-top:42px;}
 .contact-box .btn-wrap{display:flex;justify-content:center;margin-top:147px;}
