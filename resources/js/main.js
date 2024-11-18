@@ -139,9 +139,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
       // 옵션 선택 핸들러
       function handleSelect(option) {
-        if(path === ''){
-          path = '/index'
-        }
         if (typeof option === 'object') {
           // 객체 옵션의 경우 링크 이동
           window.open(option.link, '_blank'); // 링크로 이동
