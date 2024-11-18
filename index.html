@@ -19,7 +19,6 @@
 <div id="contents" class="contents-wrap">
     <!-- 1. 메인 화면 -->
     <section id="sec1" class="sec event-ver">
-        <div>반영20241118-2</div>
         <img src="resources/images/contents/sec1_bg2.png" alt="" />
         <div class="inner-wrap">
             <div class="text-wrap">
@@ -477,7 +476,7 @@
       const secondScreen = document.querySelector('#sec2 .phone-wrap .second');
       const animationWrap = document.querySelector('.animation-wrap');
       const sec2Rect = sec2.getBoundingClientRect();
-      const changePointOffset = sec2.offsetTop + (animationWrap.clientHeight * 0.3); // 기준 지점
+      const changePointOffset = sec2.offsetTop + (animationWrap.clientHeight * 0.5); // 기준 지점
 
       // sec2가 화면에 보일 때
       if (sec2Rect.top <= window.innerHeight && sec2Rect.bottom >= 0) {
@@ -486,17 +485,18 @@
         offset = Math.min(Math.max(0, offset), maxOffset);
 
         // 이동 속도를 부드럽게 만들어주는 비율 적용
-        const speedFactor = 0.1; // 속도 비율을 조정 (0.1~0.5로 실험)
+        const speedFactor = 0.2; // 속도 비율을 조정 (조금 더 빠르게)
         offset = Math.min(Math.max(0, offset), maxOffset);
         const smoothOffset = offset * speedFactor;
 
         imageWrap.style.position = 'absolute';
         imageWrap.style.top = `${smoothOffset}px`;
 
-        // 내려갈 때 이미지 전환 (기준 지점 도달 전)
+        // 기준 지점 도달 전 (이미지가 떨어지지 않음)
         if (scrollY < changePointOffset) {
           firstImage.style.opacity = 1;
           secondImage.style.opacity = 0;
+          firstImage.style.top = '0px'; // 첫 번째 이미지의 초기 위치 복원
           reachedChangePoint = false;
           screenSwitched = false;
 
@@ -507,23 +507,27 @@
           }
         }
 
-        // 기준 지점 도달 시 secondImage로 전환
+        // 기준 지점 도달 시 이미지 전환
         if (scrollY >= changePointOffset && !screenSwitched) {
-          firstImage.style.opacity = 0;
-          secondImage.style.opacity = 1;
-          screenSwitched = true; // 이미지 전환 완료 상태
+          // 이미지 전환 상태로 설정
+          screenSwitched = true;
           reachedChangePoint = true;
 
-          // 전환된 후 첫 번째 스크린 숨기고 두 번째 스크린 표시
-          // firstScreen.style.opacity = 0;
-          // secondScreen.style.opacity = 1;
+          // 첫 번째 이미지가 아래로 떨어짐 (위치 변경) -> opacity 0으로 점차 사라짐
+          firstImage.style.transition = "opacity 1s ease-out, top 1s ease-out"; // 전환 시간 조정
+          secondImage.style.transition = "opacity 1s ease-out";
 
-          // 1.5초 지연 후 화면 전환 애니메이션
+          firstImage.style.opacity = 0; // 첫 번째 이미지 opacity 0으로 점차 사라짐
+          firstImage.style.top = '150px'; // 이미지를 천천히 떨어지게끔 조정 (위치 값 줄임)
+
+          // 두 번째 이미지는 opacity 1로 점차 나타남
+          secondImage.style.opacity = 1;
+
+          // 1초 후에 화면 전환 애니메이션 (두 번째 이미지로 전환)
           setTimeout(() => {
-            secondImage.style.opacity = 0;
             firstScreen.style.opacity = 0;
             secondScreen.style.opacity = 1;
-          }, 1250);
+          }, 1000); // 1초 후에 화면 전환
         }
 
         // 전환 이후 스크롤이 더 내려가면 secondImage 유지
@@ -534,8 +538,12 @@
 
       // 역스크롤 처리: 스크롤을 올리면 처음 상태로 복원
       if (scrollY < changePointOffset && screenSwitched) {
+        firstImage.style.transition = "opacity 1s ease-out, top 1s ease-out"; // 복원 시 전환 시간 조정
+        secondImage.style.transition = "opacity 1s ease-out"; // 복원 시 전환 시간 조정
         firstImage.style.opacity = 1;
+        firstImage.style.top = '0px'; // 첫 번째 이미지가 원래 위치로 복귀
         secondImage.style.opacity = 0;
+        secondImage.style.top = '300px'; // 두 번째 이미지가 아래로 떨어지게 함
         firstScreen.style.opacity = 1;
         secondScreen.style.opacity = 0;
         screenSwitched = false; // 상태를 초기화하여 다시 전환 가능하도록 함
@@ -545,6 +553,12 @@
       // 마지막 스크롤 위치 갱신
       lastScrollY = scrollY;
     });
+
+
+
+
+
+
 
 
 
