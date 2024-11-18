@@ -1,0 +1,37 @@
+{
+  "sec1_text1": "Starting with AI and Storybooks",
+  "sec1_text2": "A Special Education for Your Child",
+  "sec1_apple": {
+    "src": "resources/images/contents/apple_download.svg",
+    "alt": "Apple Download"
+  },
+  "sec1_google": {
+    "src": "resources/images/contents/google_download.svg",
+    "alt": "Google Download"
+  },
+  "sec2_title": "A Unique Personalized Story for Your Child",
+  "sec2_desc": "Bring your child's imaginative stories to life!<br>Make them the hero of the story to naturally boost creativity and language skills, with age-appropriate, tailored stories that spark interest in reading. With ProKidsBook's AI, even children can become accomplished storytellers with impressive content and illustrations!",
+  "sec2_dress_alt": "Dress",
+  "sec2_cloud1_alt": "Magic World",
+  "sec2_cloud2_alt": "Environment Protection",
+  "sec3_title1": "Your Child as a Pro Story Writer",
+  "sec3_desc1": "Experience the joy of uploading your child's story to the shared library and becoming an author!<br/>Even if writing skills are limited, they can choose themes and illustrations and complete high-quality stories with AI assistance, improving writing and vocabulary skills.",
+  "sec3_title2": "Language Learning with a Global Perspective",
+  "sec3_desc2": "Enjoy stories in Korean, English, and Japanese to enhance your child's vocabulary, reading, listening, and grammar skills.<br/>Help your child naturally develop a global sense through diverse language learning!",
+  "sec3_title3": "Voice Acting Fun<br> with Your Child",
+  "sec3_desc3": "Record your voice reading stories so that your child can listen when you are away at work, fostering a sense of security and bonding.<br/>If your child records themselves, it helps with language development!",
+  "sec4_title": "Finish Reading with a Quiz",
+  "sec4_desc": "Complete the story reading with a quiz!<br/>Quizzes based on each story help children remember and understand, stimulating their critical thinking.",
+  "sec5_title": "Be the Hero of the Story<br> You Want to Read!",
+  "sec5_desc": "Mom, I want to be the hero of this story!<br/>Turn your child into the main character of the story they want to read.<br/>Stories they used to avoid can now be read with excitement.",
+  "sec6_title": "Enjoy Various Art Styles",
+  "sec6_desc": "Complete story reading with a quiz!<br/>Quizzes based on each story help children remember and understand, stimulating their critical thinking.",
+  "sec7_title": "Genuine Reviews from Parents Using ProKidsBook",
+  "sec7_desc": "Check out real reviews from parents who have used ProKidsBook!",
+  "sec7_img1": "resources/images/contents/sec6_review1.svg",
+  "sec7_img2": "resources/images/contents/sec6_review2.svg",
+  "sec7_img3": "resources/images/contents/sec6_review3.svg",
+  "sec7_img4": "resources/images/contents/sec6_review4.svg",
+  "sec8_star": "resources/images/contents/ico_contact.svg",
+  "sec8_btn": "Contact Us"
+}

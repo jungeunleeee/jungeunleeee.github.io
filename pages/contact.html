@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang=ko>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- css -->
+    <link rel="stylesheet" href="../../resources/css/style.css">
+
+    <!-- js -->
+    <script src="../../resources/js/main.js"></script>
+
+    <title>Prokids Book | Contact</title>
+</head>
+<body>
+<!-- 개인정보 처리방침 -->
+<div id="contents" class="contents-wrap sub">
+    <div class="title-wrap">
+        <div>
+            <h2 class="sub-title ver2">Contact us</h2>
+            <span data-translate="sec1_text1">프로키즈북은 다양한 제휴 제안을 환영해요!</span>
+            <span class="star-contact"><img src="../../resources/images/contents/star_contact.png" alt=""></span>
+        </div>
+    </div>
+    <div class="contact-box">
+        <div style="display:flex;justify-content:flex-end;padding:8px 0;">
+            <p class="essential-text">*필수 입력</p>
+        </div>
+        <form id="contactForm">
+            <div class="forms">
+                <div class="form-wrap con2">
+                    <div class="form-box">
+                        <p class="label essential">성</p>
+                        <div class="input-box">
+                            <input type="text" name="lastName" placeholder="성을 입력해주세요." required/>
+                        </div>
+                    </div>
+                    <div class="form-box">
+                        <p class="label essential">이름</p>
+                        <div class="input-box">
+                            <input type="text" name="firstName" placeholder="이름을 입력해주세요." required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrap con2">
+                    <div class="form-box">
+                        <p class="label essential">연락처</p>
+                        <div class="input-box">
+                            <input type="text" name="contact" placeholder="연락처를 입력해주세요." required/>
+                        </div>
+                    </div>
+                    <div class="form-box">
+                        <p class="label essential">이메일</p>
+                        <div class="input-box">
+                            <input type="text" name="email" placeholder="이메일을 입력해주세요." required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrap con2">
+                    <div class="form-box">
+                        <p class="label essential">회사(소속)</p>
+                        <div class="input-box">
+                            <input type="text" name="company" placeholder="회사(소속)을 입력해주세요." required/>
+                        </div>
+                    </div>
+                    <div class="form-box">
+                        <p class="label">직급</p>
+                        <div class="input-box">
+                            <input type="text" name="position" placeholder="직급을 입력해주세요."/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrap">
+                    <div class="form-box top">
+                        <p class="label essential">문의 내용</p>
+                        <div class="input-box">
+                            <textarea name="message" placeholder="내용을 입력해주세요." required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="check-box-wrap">
+                <div class="check-box">
+                    <label class="check-box">
+                        <input type="checkbox" required>
+                        <span>개인정보 처리방침에 동의합니다.</span>
+                    </label>
+                </div>
+            </div>
+            <div class="btn-wrap">
+                <button type="submit" class="btn">문의하기</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+<script>
+  // 폼 제출 시 이메일 보내는 함수
+  document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // 기본 폼 제출을 막음
+
+    const formData = new FormData(this);
+    const data = {};
+
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+    // Google Apps Script 웹 앱 URL을 여기에 입력
+    const webAppUrl = 'YOUR_WEB_APP_URL';  // Google Apps Script 웹 앱 URL
+
+    fetch(webAppUrl, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('문의가 성공적으로 전송되었습니다.');
+          document.getElementById('contact-form').reset();  // 폼 리셋
+        } else {
+          alert('문의 전송에 실패했습니다. 다시 시도해주세요.');
+        }
+      })
+      .catch(error => {
+        alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+      });
+  });
+
+  function doPost(e) {
+    // POST 요청에서 받은 데이터를 JSON 형식으로 파싱
+    var data = JSON.parse(e.postData.contents);
+
+    // 이메일 내용 구성
+    var subject = "Contact Us 문의사항";
+    var body = "성: " + data.lastName + "\n" +
+      "이름: " + data.firstName + "\n" +
+      "연락처: " + data.contact + "\n" +
+      "이메일: " + data.email + "\n" +
+      "회사(소속): " + data.company + "\n" +
+      "직급: " + data.position + "\n" +
+      "문의 내용: " + data.message;
+
+    // 이메일 보내기 (이메일 주소는 je.lee@iea.co.kr로 설정)
+    MailApp.sendEmail({
+      to: "je.lee@iea.co.kr",
+      subject: subject,
+      body: body
+    });
+
+    // 응답을 반환 (클라이언트에 성공 응답 전달)
+    return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
+  }
+</script>
