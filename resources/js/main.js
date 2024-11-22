@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function(){
   /* [공통 상단] */
-  const originalPath = window.location.pathname;
+  const originalPath = window.location.pathname === '/' ? '/index' : window.location.pathname.replace('.html', '');
   const path = originalPath.replace('.html', '')
+
+  // console.log(originalPath)
+  // 로컬 스토리지에 activeNavPath가 없으면 기본값으로 설정
+  let activePath = path || '/index'
     const selectedLanguageOption = localStorage.getItem('selectedOption') || 'KOR';
     const flagImages = {
       KOR: 'korea_4.png',
@@ -83,6 +87,36 @@ document.addEventListener("DOMContentLoaded", function(){
   /* 초기 설정(KOR) : localstorage에 저장된 값이 없을 시 */
     rendererHeader(selectedLanguageOption)
     translateText(selectedLanguageOption, '/index')
+
+  const navItems = document.querySelectorAll('nav ul li a');
+  const logoLink = document.querySelector('h1 a');
+
+  /*if (!activePath) {
+    activePath = '/index';
+    localStorage.setItem('activeNavPath', activePath);
+  }*/
+
+  // 페이지 로드 시 저장된 경로를 기준으로 'on' 클래스 적용
+  navItems.forEach((item) => {
+    // console.log(item.getAttribute('href').replace('.html',''))
+    if (item.getAttribute('href').replace('.html','') === activePath) {
+      item.parentElement.classList.add('on');
+    }
+  });
+
+  // 각 <li>의 <a>에 클릭 이벤트 추가하여 로컬 스토리지에 경로 저장
+  navItems.forEach((item) => {
+    item.addEventListener('click', function() {
+      localStorage.setItem('activeNavPath', this.getAttribute('href'));
+    });
+  });
+
+  // 로고 클릭 시에도 로컬 스토리지에 경로 저장
+  if (logoLink) {
+    logoLink.addEventListener('click', function() {
+      localStorage.setItem('activeNavPath', this.getAttribute('href'));
+    });
+  }
 
   /* 헤더 스크롤 */
     const content = document.querySelector('#contents')
@@ -241,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function(){
   // 1-3. 각 드롭다운에 맞게 초기화
     // 실행문 : header dropdown
     const dropdown1 = document.querySelector('.dropdown1');
-    initDropdown(dropdown1, ['KOR', 'ENG', 'JPN'], renderOptionWithImage); //['KOR', 'ENG', 'JPN']
+    initDropdown(dropdown1, ['KOR'], renderOptionWithImage); //['KOR', 'ENG', 'JPN']
 
     // 실행문 : footer dropdown
     const dropdown2 = document.querySelector('.dropdown2');
