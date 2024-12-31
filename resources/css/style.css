@@ -720,7 +720,7 @@ h2.sub-title{text-align:center;font-size:40px;font-weight:600;color:#151515;marg
 @media (max-width: 500px) {
     #sec1 {
         height: 100vh;
-        background: url(https://prokidsbook.com/resources/images/contents/sec1_bg2.png) no-repeat;
+        background: url('/resources/images/contents/sec1_bg2.png') no-repeat;
         background-size: cover;
         background-position-x: center;
         background-position-y: -330px;
