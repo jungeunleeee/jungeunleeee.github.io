@@ -14,11 +14,14 @@
     <meta property="og:description" content="AI로 만드는 우리 아이만의 특별한 맞춤형 동화">
     <meta property="og:image" content="https://prokidsbook.com/resources/images/PKB_metatag_ogimage.png">
     <meta property="og:url" content="https://www.prokidsbook.com">
-    <link rel="icon" sizes="16x16" href="resources/images/contents/prokids_favicon.png">
+    <link rel="icon" sizes="16x16" href="resources/images/prokids_favicon.png">
     <!-- css -->
     <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/lib/swiper/swiper.css">
 
     <!-- js -->
+    <script src="resources/lib/jquery-3.6.1/jquery-3.6.1.js"></script>
+    <script src="resources/lib/swiper/swiper.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="resources/js/main.js"></script>
     <script src="resources/js/intro.js"></script>
@@ -254,20 +257,40 @@
                     부모님이 프로키즈북을 직접 사용하고 남긴 후기를 살펴봐요!
                 </p>
             </div>
-            <div class="image-wrap">
-                <div class="image">
-                    <img src="resources/images/contents/sec6_review1.svg" alt="" data-translate="sec7_img1"/>
+            <div class="sec7_swiper_slide swiper">
+                <div class="image-wrap swiper-wrapper">
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review1.svg" alt="" data-translate="sec7_img1"/>
+                    </div>
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review2.svg" alt="" data-translate="sec7_img2"/>
+                    </div>
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review3.svg" alt="" data-translate="sec7_img3"/>
+                    </div>
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review4.svg" alt="" data-translate="sec7_img4"/>
+                    </div>
                 </div>
-                <div class="image">
-                    <img src="resources/images/contents/sec6_review2.svg" alt="" data-translate="sec7_img2"/>
-                </div>
-                <div class="image">
-                    <img src="resources/images/contents/sec6_review3.svg" alt="" data-translate="sec7_img3"/>
-                </div>
-                <div class="image">
-                    <img src="resources/images/contents/sec6_review4.svg" alt="" data-translate="sec7_img4"/>
-                </div>
+                <div class="swiper-pagination"></div>
             </div>
+            <!--<div class="sec7_swiper_card swiper">
+                <div class="image-wrap swiper-wrapper">
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review1.svg" alt="" data-translate="sec7_img1"/>
+                    </div>
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review2.svg" alt="" data-translate="sec7_img2"/>
+                    </div>
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review3.svg" alt="" data-translate="sec7_img3"/>
+                    </div>
+                    <div class="image swiper-slide">
+                        <img src="resources/images/contents/sec6_review4.svg" alt="" data-translate="sec7_img4"/>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>-->
         </div>
     </section>
     <!-- //  7. Customer Reviews : 부모님의 생생한 프로키즈북 사용 후기 -->

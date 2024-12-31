@@ -1,3 +1,4 @@
+let sec7SwiperSlide; // sec7 슬라이더 선언
 document.addEventListener("DOMContentLoaded", function(){
   /* [공통 상단] */
   const originalPath = window.location.pathname === '/' ? '/index' : window.location.pathname.replace('.html', '');
@@ -10,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function(){
     const flagImages = {
       KOR: 'korea_4.png',
       ENG: 'america_4.png',
-      JPN: 'japan_4.png'
+      JPN: 'japan_4.png',
+      VIET: 'viet.svg'
     };
     function rendererHeader(selectedOption) {
       let selectedFlagImage = flagImages[selectedOption];
@@ -33,7 +35,9 @@ document.addEventListener("DOMContentLoaded", function(){
                       <img src="/resources/images/header/${selectedFlagImage}" alt="" class="label-img" />
                       <span>${selectedOption}</span>
                     </button>
-                    <ul class="option-list"></ul>
+                    <ul class="option-list">
+   
+                    </ul>
                   </div>
                 </li>
               </ul>
@@ -68,9 +72,6 @@ document.addEventListener("DOMContentLoaded", function(){
                         <span data-translate="footer_6">패밀리 사이트</span>
                     </button>
                     <ul class="option-list">
-                        <li><a href="#" data-translate="footer_7">프로</a></li>
-                        <li><a href="#" >IEA</a></li>
-                        <li><a href="#" data-translate="footer_8">제이비트리</a></li>
                     </ul>
                 </div>
             </div>
@@ -139,24 +140,28 @@ document.addEventListener("DOMContentLoaded", function(){
     @param {Array} options 옵션 배열 (예: ['KOR', 'ENG', 'JPN'])
     @param {Function} renderOption 옵션을 렌더링하는 커스텀 함수
   * */
-    function initDropdown(dropdownEl, options, renderOption) {
+    function initDropdown(dropdownEl, options, renderOption, footer) {
       const label = dropdownEl.querySelector('.label');
       const labelText = label.querySelector('span');
       const optionList = dropdownEl.querySelector('.option-list');
 
-
       // 옵션 렌더링 함수
       function renderOptions(selected) {
         optionList.innerHTML = ''; // 기존 옵션 초기화
-        const filteredOptions = options.filter(option => option !== selected);
-
-        filteredOptions.forEach(option => {
+        let filteredOptions = "";
+        if(footer){
+          filteredOptions = options;
+        }else{
+          filteredOptions = options.filter(option => option !== selected);
+        }
+        filteredOptions.forEach((option, index) => {
           const li = document.createElement('li');
           li.classList.add('option-item');
-          li.setAttribute('data-value', option);
+          console.log(index,"asdasdasdas", options.length)
+          // li.setAttribute('data-value', option);
 
           // 외부에서 정의한 렌더링 방식 호출
-          renderOption(li, option);
+          renderOption(li, option, dropdownEl);
 
           // 옵션 클릭 이벤트 바인딩
           li.addEventListener('click', (event) => {
@@ -181,7 +186,8 @@ document.addEventListener("DOMContentLoaded", function(){
           const flagImages = {
             KOR: '/resources/images/header/korea_4.png',
             ENG: '/resources/images/header/america_4.png',
-            JPN: '/resources/images/header/japan_4.png'
+            JPN: '/resources/images/header/japan_4.png',
+            VIET: '/resources/images/header/viet.svg'
           };
           label.querySelector('.label-img').src = flagImages[option]; // 라벨 이미지 업데이트
           label.querySelector('.label-img').alt = `${option} flag`; // alt 속성 업데이트
@@ -191,6 +197,9 @@ document.addEventListener("DOMContentLoaded", function(){
           renderOptions(option); // 선택된 항목 제외한 옵션 렌더링
           // 번역
           translateText(option,path)
+          if(path === '/' || path === '/index') {
+            sec7SwiperSlide.destroy(true, true)
+          }
         }
       }
 
@@ -201,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function(){
         renderOptions(localStorage.getItem('selectedOption') || options[0]);
       });
       // 초기 옵션 렌더링
-      renderOptions(localStorage.getItem('selectedOption') || options[0]);
     }
     function translateText (option,path) {
       // 번역
@@ -225,7 +233,8 @@ document.addEventListener("DOMContentLoaded", function(){
       const flagImages = {
         KOR: '/resources/images/header/korea_4.png',
         ENG: '/resources/images/header/america_4.png',
-        JPN: '/resources/images/header/japan_4.png'
+        JPN: '/resources/images/header/japan_4.png',
+        VIET: '/resources/images/header/viet.svg'
       };
       img.src = flagImages[option];
       img.alt = `${option} flag`;
@@ -238,15 +247,18 @@ document.addEventListener("DOMContentLoaded", function(){
       li.appendChild(span);
     }
   // 1-2. 텍스트만 포함된 옵션 렌더링 함수 (링크 이동)
-    function renderOptionTextOnly(li, item) {
+    function renderOptionTextOnly(li, item,dropdownEl) {
       const a = document.createElement('a');
-      a.textContent = item.option[localStorage.getItem('selectedOption')];
+      const selectOption =  localStorage.getItem('selectedOption') !== null ? localStorage.getItem('selectedOption') : 'KOR'
+      a.textContent = item.option[selectOption];
       a.href = item.link;
       a.target = '_blank';
       a.addEventListener('click', (event) => {
         event.stopPropagation(); // 부모 이벤트 전파 방지
         dropdownEl.classList.remove('active'); // 드롭다운 닫기
       });
+      // let ss = `<span>${selectOption}</span>`
+      li.setAttribute('data-value', item.option[selectOption])
       li.appendChild(a);
     }
   // 언어 번역
@@ -288,15 +300,39 @@ document.addEventListener("DOMContentLoaded", function(){
   // 1-3. 각 드롭다운에 맞게 초기화
     // 실행문 : header dropdown
     const dropdown1 = document.querySelector('.dropdown1');
-    initDropdown(dropdown1, ['KOR', 'ENG', 'JPN'], renderOptionWithImage); //['KOR', 'ENG', 'JPN']
+    initDropdown(dropdown1, ['KOR', 'ENG', 'JPN','VIET'], renderOptionWithImage); //['KOR', 'ENG', 'JPN','VIET']
 
     // 실행문 : footer dropdown
     const dropdown2 = document.querySelector('.dropdown2');
     initDropdown(dropdown2, [
-      {option: {'KOR':'프로','ENG':'Pro','JPN':'Pro'}, link: 'https://procorp.co.kr/'},
-      {option: {'KOR':'IEA','ENG':'IEA','JPN':'IEA'}, link: 'https://www.iea.co.kr/'},
-      {option: {'KOR':'제이비트리','ENG':'JBTree','JPN':'JBTree'}, link: 'https://jbtree.co.kr/'}
-    ], renderOptionTextOnly);
+      {
+        option: {
+          'KOR':'프로',
+          'ENG':'Pro',
+          'JPN':'Pro',
+          'VIET':'Pro'
+        },
+        link: 'https://procorp.co.kr/'
+      },
+      {
+        option: {
+          'KOR':'IEA',
+          'ENG':'IEA',
+          'JPN':'IEA',
+          'VIET':'IEA'
+        },
+        link: 'https://www.iea.co.kr/'
+      },
+      {
+        option: {
+          'KOR':'제이비트리',
+          'ENG':'JBTree',
+          'JPN':'JBTree',
+          'VIET':'JBTree'
+        },
+        link: 'https://jbtree.co.kr/'
+      },
+    ], renderOptionTextOnly, true);
 });
 
 
@@ -304,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function(){
 function indexPageTranslate(language) {
   document.querySelector('[data-translate="meta_title"]').innerText = language.meta_title
   /* sec1 번역 */
-  document.querySelector('[data-translate="sec1_text1"]') ? document.querySelector('[data-translate="sec1_text1"]').innerText = language.sec1_text1 : "";
+  document.querySelector('[data-translate="sec1_text1"]') ? document.querySelector('[data-translate="sec1_text1"]').innerHTML = language.sec1_text1 : "";
   document.querySelector('[data-translate="sec1_text2"]').innerHTML = language.sec1_text2;
   document.querySelector('[data-translate="sec1_apple"]').src = language.sec1_apple.src;
   document.querySelector('[data-translate="sec1_apple"]').alt = language.sec1_apple.alt;
@@ -336,7 +372,7 @@ function indexPageTranslate(language) {
   document.querySelector('[data-translate="sec3_title3"]').innerHTML = language.sec3_title3;
   document.querySelector('[data-translate="sec3_desc3"]').innerHTML = language.sec3_desc3;
   /* sec4, sec5 번역 */
-  document.querySelector('[data-translate="sec4_title"]').innerText = language.sec4_title;
+  document.querySelector('[data-translate="sec4_title"]').innerHTML = language.sec4_title;
   document.querySelector('[data-translate="sec4_desc"]').innerHTML = language.sec4_desc;
   document.querySelector('[data-translate="sec4_phone1"]').src = language.sec4_phone1;
   document.querySelector('[data-translate="sec4_phone2"]').src = language.sec4_phone2;
@@ -370,6 +406,44 @@ function indexPageTranslate(language) {
   document.querySelector('[data-translate="sec7_img2"]').src = language.sec7_img2;
   document.querySelector('[data-translate="sec7_img3"]').src = language.sec7_img3;
   document.querySelector('[data-translate="sec7_img4"]').src = language.sec7_img4;
+  function loadSec7Slider() {
+    // 너비에 따라 Swiper 초기화
+    if (window.innerWidth >= 500) {
+      sec7SwiperSlide = new Swiper(".sec7_swiper_slide", {
+        effect: "slide",
+        slidesPerView: window.innerWidth >= 1024 ? 4 : 2,
+        spaceBetween: 18,
+        loop: false,
+        grabCursor: true,
+        pagination: {
+          el: ".sec7_swiper_slide .swiper-pagination",
+          clickable: true,
+        },
+      });
+    } else {
+      sec7SwiperSlide = new Swiper(".sec7_swiper_slide", {
+        effect: "cards",
+        slidesPerView: 1,
+        loop: false,
+        grabCursor: true,
+        pagination: {
+          el: ".sec7_swiper_slide .swiper-pagination",
+          clickable: true,
+        },
+      });
+    }
+  }
+  // sec7 슬라이더 실행
+  loadSec7Slider();
+  
+  // resize 시 swiper 초기화
+  window.addEventListener("resize", () => {
+    if (sec7SwiperSlide) {
+      sec7SwiperSlide.destroy(true, true);
+    }
+    loadSec7Slider();
+  });
+  
   /* sec8 */
   document.querySelector('[data-translate="sec8_star"]').style = language.sec8_star;
   document.querySelector('[data-translate="sec8_btn"]').innerHTML = language.sec8_btn;
@@ -379,6 +453,7 @@ function indexPageTranslate(language) {
   document.querySelector('[data-translate="footer_4"]').innerText = language.footer_4;
   document.querySelector('[data-translate="footer_5"]').innerText = language.footer_5;
   document.querySelector('[data-translate="footer_6"]').innerText = language.footer_6;
+
   /*document.querySelector('[data-translate="footer_7"]').innerText = language.footer_7;
   document.querySelector('[data-translate="footer_8"]').innerText = language.footer_8;*/
 }
