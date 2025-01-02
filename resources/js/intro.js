@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(){
   /* 컨텐츠 내 독립적인 스크립트 */
+  let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+  document.querySelector('#sec1').style.height = `${100 * vh}px`;
+  /*window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.querySelector('#sec1').style.height = `${100 * vh}px`;
+  });*/
   /* sec1 + header : 글자 효과 + 스크롤시 헤더 안의 색상 변경 */
   window.addEventListener('load', animateElements);
   window.addEventListener('scroll', function() {
