@@ -1,4 +1,5 @@
 let sec7SwiperSlide; // sec7 슬라이더 선언
+let selectedLanguageOption = localStorage.getItem('selectedOption') || 'KR';
 document.addEventListener("DOMContentLoaded", function(){
   /* [공통 상단] */
   const originalPath = window.location.pathname === '/' ? '/index' : window.location.pathname.replace('.html', '');
@@ -7,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function(){
   // console.log(originalPath)
   // 로컬 스토리지에 activeNavPath가 없으면 기본값으로 설정
   let activePath = path || '/index'
-  const selectedLanguageOption = localStorage.getItem('selectedOption') || 'KR';
   const flagImages = {
     KR: 'korea_4.png',
     EN: 'america_4.png',
@@ -270,6 +270,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const params = new URLSearchParams(queryString);
     // lang 값 추출 (예: KO)
     const langParam = params.get('lang');
+
     // 언어 업데이트 (lang 값이 있을 경우 우선 사용)
     const activeLanguage = langParam || language;
     switch (path) {
@@ -289,7 +290,8 @@ document.addEventListener("DOMContentLoaded", function(){
         termsOfPolicy(activeLanguage);
         break;
       case "/pages/manual":
-        termsOfPolicy(activeLanguage);
+        selectedLanguageOption = params
+        manaulTranslate(activeLanguage);
       break;
       default:
         break;
@@ -525,5 +527,32 @@ function termsOfPolicy(language) {
 
 /* manual 페이지 */
 function manaulTranslate (language) {
-
+  document.querySelector('[data-translate="m_title"]').innerHTML = language.m_title;
+  document.querySelector('[data-translate="m_sub"]').innerHTML = language.m_sub;
+  document.querySelector('[data-translate="m_title1"]').innerHTML = language.m_title1;
+  document.querySelector('[data-translate="m_sub1-1"]').innerHTML = language.m_sub1-1;
+  document.querySelector('[data-translate="m_sub1-2"]').innerHTML = language.m_sub1-2;
+  document.querySelector('[data-translate="m_sub1-3"]').innerHTML = language.m_sub1-3;
+  document.querySelector('[data-translate="m_title2"]').innerHTML = language.m_title2;
+  document.querySelector('[data-translate="m_title3"]').innerHTML = language.m_title3;
+  document.querySelector('[data-translate="m_sub3-1"]').innerHTML = language.m_sub3-1;
+  document.querySelector('[data-translate="m_sub3-2"]').innerHTML = language.m_sub3-2;
+  document.querySelector('[data-translate="m_title4"]').innerHTML = language.m_title4;
+  document.querySelector('[data-translate="m_sub4-1"]').innerHTML = language.m_sub4-1;
+  document.querySelector('[data-translate="m_sub4-2"]').innerHTML = language.m_sub4-2;
+  document.querySelector('[data-translate="m_title5"]').innerHTML = language.m_title5;
+  document.querySelector('[data-translate="m_sub5-1"]').innerHTML = language.m_sub5-1;
+  document.querySelector('[data-translate="m_sub5-2"]').innerHTML = language.m_sub5-2;
+  document.querySelector('[data-translate="m_title6"]').innerHTML = language.m_title6;
+  document.querySelector('[data-translate="m_sub6-1"]').innerHTML = language.m_sub6-1;
+  document.querySelector('[data-translate="m_sub6-2"]').innerHTML = language.m_sub6-2;
+  document.querySelector('[data-translate="m_title7"]').innerHTML = language.m_title7;
+  document.querySelector('[data-translate="m_sub7-1"]').innerHTML = language.m_sub7-1;
+  document.querySelector('[data-translate="m_title8"]').innerHTML = language.m_title8;
+  document.querySelector('[data-translate="m_sub8-1"]').innerHTML = language.m_sub8-1;
+  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language.m_sub8-2;
+  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language.m_sub8-2;
+  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language.m_sub8-2;
+  document.querySelector('[data-translate="m_comment1"]').innerHTML = language.m_comment1;
+  document.querySelector('[data-translate="m_comment2"]').innerHTML = language.m_comment2;
 }
