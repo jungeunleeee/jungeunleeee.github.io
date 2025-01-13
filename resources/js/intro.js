@@ -1,12 +1,74 @@
 document.addEventListener("DOMContentLoaded", function(){
   /* 컨텐츠 내 독립적인 스크립트 */
-  let vh = window.innerHeight * 0.01;
-// Then we set the value in the --vh custom property to the root of the document
-  document.querySelector('#sec1').style.height = `${100 * vh}px`;
-  /*window.addEventListener('resize', () => {
-    let vh = window.innerHeight * 0.01;
-    document.querySelector('#sec1').style.height = `${100 * vh}px`;
-  });*/
+/*  let resizeTimeout;
+
+// 초기 실행
+  function updateSectionHeight() {
+    let iw = window.innerWidth;
+    const sec1 = document.querySelector('#sec1');
+
+    if (iw <= 700) {
+      let vh = window.innerHeight * 0.01;
+      sec1.style.height = `${100 * vh}px`;
+      sec1.style.minHeight = ''; // 기존 스타일 초기화
+    } else {
+      sec1.style.height = 'auto';
+      sec1.style.minHeight = '100vh';
+    }
+  }
+
+// 리사이즈 이벤트 핸들러
+  function onResize() {
+    alert('리')
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      updateSectionHeight(); // 마지막 크기 기준으로 처리
+    }, 200); // 디바운스 시간 (밀리초)
+  }
+
+// 초기 실행
+  updateSectionHeight();*/
+  let resizeTimeout;
+  let isResizeEventTriggered = false;
+
+// 초기 실행
+  function updateSectionHeight() {
+    const iw = window.innerWidth;
+    const sec1 = document.querySelector('#sec1');
+
+    if (iw <= 700) {
+      const vh = window.innerHeight * 0.01;
+      sec1.style.height = `${100 * vh}px`;
+      sec1.style.minHeight = '100%'; // 기존 스타일 초기화
+    } else {
+      sec1.style.height = 'auto';
+      sec1.style.minHeight = '100vh';
+    }
+  }
+
+// 리사이즈 이벤트 핸들러
+  function onResize() {
+    if (!isResizeEventTriggered) {
+      // 리사이즈가 처음 발생했을 때만 실행
+      isResizeEventTriggered = true;
+      clearTimeout(resizeTimeout);
+
+      // 리사이즈가 종료된 후 200ms 뒤에 실행
+      resizeTimeout = setTimeout(() => {
+        updateSectionHeight(); // 마지막 크기 기준으로 처리
+        isResizeEventTriggered = false; // 리사이즈 이벤트 종료
+      }, 200);
+    }
+  }
+
+// 초기 로딩 후 한 번만 실행
+  updateSectionHeight();
+
+// 리사이즈 이벤트 등록
+  window.addEventListener('resize', onResize);
+
+
+  /* 컨텐츠 내 독립적인 스크립트 */
   /* sec1 + header : 글자 효과 + 스크롤시 헤더 안의 색상 변경 */
   window.addEventListener('load', animateElements);
   window.addEventListener('scroll', function() {

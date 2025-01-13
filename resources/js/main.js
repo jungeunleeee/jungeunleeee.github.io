@@ -7,21 +7,22 @@ document.addEventListener("DOMContentLoaded", function(){
   // console.log(originalPath)
   // 로컬 스토리지에 activeNavPath가 없으면 기본값으로 설정
   let activePath = path || '/index'
-    const selectedLanguageOption = localStorage.getItem('selectedOption') || 'KOR';
-    const flagImages = {
-      KOR: 'korea_4.png',
-      ENG: 'america_4.png',
-      JPN: 'japan_4.png',
-      VIET: 'viet.svg'
-    };
-    function rendererHeader(selectedOption) {
-      let selectedFlagImage = flagImages[selectedOption];
-      // 선택값 또는 이미지 파일명이 유효하지 않다면, 기본값으로 변경
-      if(!selectedFlagImage) {
-        selectedOption = 'KOR';
-      }
-      // header html 추가
-      const headerHtml = `
+  const selectedLanguageOption = localStorage.getItem('selectedOption') || 'KR';
+  const flagImages = {
+    KR: 'korea_4.png',
+    EN: 'america_4.png',
+    JP: 'japan_4.png',
+    VN: 'viet.svg',
+    CN:'china.png'
+  };
+  function rendererHeader(selectedOption) {
+    let selectedFlagImage = flagImages[selectedOption];
+    // 선택값 또는 이미지 파일명이 유효하지 않다면, 기본값으로 변경
+    if(!selectedFlagImage) {
+      selectedOption = 'KR';
+    }
+    // header html 추가
+    const headerHtml = `
         <header>
           <div class="inner-wrap">
             <h1><a href="/"><img src="/resources/images/header/proKids_logo.svg" alt="ProKids"></a></h1>
@@ -45,11 +46,11 @@ document.addEventListener("DOMContentLoaded", function(){
           </div>
         </header>
       `;
-      let templateHeader = document.createElement('template');
-      templateHeader.innerHTML = headerHtml;
+    let templateHeader = document.createElement('template');
+    templateHeader.innerHTML = headerHtml;
 
-      /* footer */
-      const footerHtml = `
+    /* footer */
+    const footerHtml = `
       <footer>
         <div class="inner-wrap">
             <div class="logo-wrap">
@@ -78,16 +79,16 @@ document.addEventListener("DOMContentLoaded", function(){
         </div>
     </footer>
     `
-      let templateFooter = document.createElement('template');
-      templateFooter.innerHTML = footerHtml;
+    let templateFooter = document.createElement('template');
+    templateFooter.innerHTML = footerHtml;
 
-      /* 실행문 */
-      document.body.append(templateFooter.content);
-      document.body.prepend(templateHeader.content);
-    }
-  /* 초기 설정(KOR) : localstorage에 저장된 값이 없을 시 */
-    rendererHeader(selectedLanguageOption)
-    translateText(selectedLanguageOption, path)
+    /* 실행문 */
+    document.body.append(templateFooter.content);
+    document.body.prepend(templateHeader.content);
+  }
+  /* 초기 설정(KR) : localstorage에 저장된 값이 없을 시 */
+  rendererHeader(selectedLanguageOption)
+  translateText(selectedLanguageOption, path)
 
   const navItems = document.querySelectorAll('nav ul li a');
   const logoLink = document.querySelector('h1 a');
@@ -115,224 +116,238 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   /* 헤더 스크롤 */
-    const content = document.querySelector('#contents')
-    const header = document.querySelector('header');
+  const content = document.querySelector('#contents')
+  const header = document.querySelector('header');
+  if (content.classList.contains('sub')) {
+    header.classList.add('sub','scroll');
+  }
+  window.addEventListener('scroll', function() {
     if (content.classList.contains('sub')) {
-      header.classList.add('sub','scroll');
-    }
-    window.addEventListener('scroll', function() {
-      if (content.classList.contains('sub')) {
+      header.classList.add('scroll');
+    } else {
+      if (window.scrollY === 0) {
+        header.classList.remove('scroll');
+      } else if(window.scrollY >= 500) {
         header.classList.add('scroll');
       } else {
-        if (window.scrollY === 0) {
-          header.classList.remove('scroll');
-        } else if(window.scrollY >= 500) {
-          header.classList.add('scroll');
-        } else {
-          header.classList.add('scroll');
-        }
+        header.classList.add('scroll');
       }
-    });
+    }
+  });
   /* [공통] ########################  */
   /* 1. Dropdown : header, footer
   * 특정 드롭다운을 초기화하는 함수
     @param {HTMLElement} dropdownEl 드롭다운 컨테이너 요소
-    @param {Array} options 옵션 배열 (예: ['KOR', 'ENG', 'JPN'])
+    @param {Array} options 옵션 배열 (예: ['KR', 'EN', 'JP'])
     @param {Function} renderOption 옵션을 렌더링하는 커스텀 함수
   * */
-    function initDropdown(dropdownEl, options, renderOption, footer) {
-      const label = dropdownEl.querySelector('.label');
-      const labelText = label.querySelector('span');
-      const optionList = dropdownEl.querySelector('.option-list');
+  function initDropdown(dropdownEl, options, renderOption, footer) {
+    const label = dropdownEl.querySelector('.label');
+    const labelText = label.querySelector('span');
+    const optionList = dropdownEl.querySelector('.option-list');
 
-      // 옵션 렌더링 함수
-      function renderOptions(selected) {
-        optionList.innerHTML = ''; // 기존 옵션 초기화
-        let filteredOptions = "";
-        if(footer){
-          filteredOptions = options;
-        }else{
-          filteredOptions = options.filter(option => option !== selected);
-        }
-        filteredOptions.forEach((option, index) => {
-          const li = document.createElement('li');
-          li.classList.add('option-item');
-          console.log(index,"asdasdasdas", options.length)
-          // li.setAttribute('data-value', option);
+    // 옵션 렌더링 함수
+    function renderOptions(selected) {
+      optionList.innerHTML = ''; // 기존 옵션 초기화
+      let filteredOptions = "";
+      if(footer){
+        filteredOptions = options;
+      }else{
+        filteredOptions = options.filter(option => option !== selected);
+      }
+      filteredOptions.forEach((option, index) => {
+        const li = document.createElement('li');
+        li.classList.add('option-item');
+        // li.setAttribute('data-value', option);
 
-          // 외부에서 정의한 렌더링 방식 호출
-          renderOption(li, option, dropdownEl);
+        // 외부에서 정의한 렌더링 방식 호출
+        renderOption(li, option, dropdownEl);
 
-          // 옵션 클릭 이벤트 바인딩
-          li.addEventListener('click', (event) => {
-            handleSelect(option, event);
-          });
-          optionList.appendChild(li);
+        // 옵션 클릭 이벤트 바인딩
+        li.addEventListener('click', (event) => {
+          handleSelect(option, event);
         });
-      }
-
-      // 옵션 선택 핸들러
-      function handleSelect(option) {
-        if (typeof option === 'object') {
-          // 객체 옵션의 경우 링크 이동
-          window.open(option.link, '_blank'); // 링크로 이동
-          dropdownEl.classList.remove('active'); // 드롭다운 닫기
-        } else {
-          localStorage.setItem('selectedOption', option);
-          labelText.textContent = option; // 라벨 텍스트 업데이트
-          label.setAttribute('data-value', option); // 라벨의 데이터 속성 업데이트
-
-          // 선택한 이미지로 라벨 이미지 업데이트
-          const flagImages = {
-            KOR: '/resources/images/header/korea_4.png',
-            ENG: '/resources/images/header/america_4.png',
-            JPN: '/resources/images/header/japan_4.png',
-            VIET: '/resources/images/header/viet.svg'
-          };
-          label.querySelector('.label-img').src = flagImages[option]; // 라벨 이미지 업데이트
-          label.querySelector('.label-img').alt = `${option} flag`; // alt 속성 업데이트
-
-          // 드롭다운 닫기 및 옵션 재렌더링
-          dropdownEl.classList.remove('active');
-          renderOptions(option); // 선택된 항목 제외한 옵션 렌더링
-          // 번역
-          translateText(option,path)
-          if(path === '/' || path === '/index') {
-            sec7SwiperSlide.destroy(true, true)
-          }
-        }
-      }
-
-      // 라벨 클릭 핸들러 (드롭다운 열기/닫기)
-      label.addEventListener('click', () => {
-        const isActive = dropdownEl.classList.toggle('active');
-        // 드롭다운을 열 때, 현재 선택된 값으로 옵션 렌더링
-        renderOptions(localStorage.getItem('selectedOption') || options[0]);
+        optionList.appendChild(li);
       });
-      // 초기 옵션 렌더링
     }
-    function translateText (option,path) {
-      // 번역
-      fetch(`/resources/translation-data/${option}.json`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          updateLanguage(data, path); // 언어 데이터 업데이트 호출
-        })
-        .catch(error => {
-          console.error('Error fetching translation data:', error);
-        });
-    }
-  // 1-1. 이미지 포함 옵션 렌더링 함수
-    function renderOptionWithImage(li, option) {
-      const img = document.createElement('img');
-      const flagImages = {
-        KOR: '/resources/images/header/korea_4.png',
-        ENG: '/resources/images/header/america_4.png',
-        JPN: '/resources/images/header/japan_4.png',
-        VIET: '/resources/images/header/viet.svg'
-      };
-      img.src = flagImages[option];
-      img.alt = `${option} flag`;
-      img.classList.add('option-img');
 
-      const span = document.createElement('span');
-      span.textContent = option;
-
-      li.appendChild(img);
-      li.appendChild(span);
-    }
-  // 1-2. 텍스트만 포함된 옵션 렌더링 함수 (링크 이동)
-    function renderOptionTextOnly(li, item,dropdownEl) {
-      const a = document.createElement('a');
-      const selectOption =  localStorage.getItem('selectedOption') !== null ? localStorage.getItem('selectedOption') : 'KOR'
-      a.textContent = item.option[selectOption];
-      a.href = item.link;
-      a.target = '_blank';
-      a.addEventListener('click', (event) => {
-        event.stopPropagation(); // 부모 이벤트 전파 방지
+    // 옵션 선택 핸들러
+    function handleSelect(option) {
+      if (typeof option === 'object') {
+        // 객체 옵션의 경우 링크 이동
+        window.open(option.link, '_blank'); // 링크로 이동
         dropdownEl.classList.remove('active'); // 드롭다운 닫기
-      });
-      // let ss = `<span>${selectOption}</span>`
-      li.setAttribute('data-value', item.option[selectOption])
-      li.appendChild(a);
+      } else {
+        localStorage.setItem('selectedOption', option);
+        labelText.textContent = option; // 라벨 텍스트 업데이트
+        label.setAttribute('data-value', option); // 라벨의 데이터 속성 업데이트
+
+        // 선택한 이미지로 라벨 이미지 업데이트
+        const flagImages = {
+          KR: '/resources/images/header/korea_4.png',
+          EN: '/resources/images/header/america_4.png',
+          CN: '/resources/images/header/china.svg',
+          JP: '/resources/images/header/japan_4.png',
+          VN: '/resources/images/header/viet.svg',
+        };
+        label.querySelector('.label-img').src = flagImages[option]; // 라벨 이미지 업데이트
+        label.querySelector('.label-img').alt = `${option} flag`; // alt 속성 업데이트
+
+        // 드롭다운 닫기 및 옵션 재렌더링
+        dropdownEl.classList.remove('active');
+        renderOptions(option); // 선택된 항목 제외한 옵션 렌더링
+        // 번역
+        translateText(option,path)
+        if(path === '/' || path === '/index') {
+          sec7SwiperSlide.destroy(true, true)
+        }
+      }
     }
+
+    // 라벨 클릭 핸들러 (드롭다운 열기/닫기)
+    label.addEventListener('click', () => {
+      const isActive = dropdownEl.classList.toggle('active');
+      // 드롭다운을 열 때, 현재 선택된 값으로 옵션 렌더링
+      renderOptions(localStorage.getItem('selectedOption') || options[0]);
+    });
+    // 초기 옵션 렌더링
+  }
+  function translateText (option,path) {
+    // 번역
+    fetch(`/resources/translation-data/${option}.json`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        updateLanguage(data, path); // 언어 데이터 업데이트 호출
+      })
+      .catch(error => {
+        console.error('Error fetching translation data:', error);
+      });
+  }
+  // 1-1. 이미지 포함 옵션 렌더링 함수
+  function renderOptionWithImage(li, option) {
+    const img = document.createElement('img');
+    const flagImages = {
+      KR: '/resources/images/header/korea_4.png',
+      EN: '/resources/images/header/america_4.png',
+      CN: '/resources/images/header/china.svg',
+      JP: '/resources/images/header/japan_4.png',
+      VN: '/resources/images/header/viet.svg'
+    };
+    img.src = flagImages[option];
+    img.alt = `${option} flag`;
+    img.classList.add('option-img');
+
+    const span = document.createElement('span');
+    span.textContent = option;
+
+    li.appendChild(img);
+    li.appendChild(span);
+  }
+  // 1-2. 텍스트만 포함된 옵션 렌더링 함수 (링크 이동)
+  function renderOptionTextOnly(li, item,dropdownEl) {
+    const a = document.createElement('a');
+    const selectOption =  localStorage.getItem('selectedOption') !== null ? localStorage.getItem('selectedOption') : 'KR'
+    a.textContent = item.option[selectOption];
+    a.href = item.link;
+    a.target = '_blank';
+    a.addEventListener('click', (event) => {
+      event.stopPropagation(); // 부모 이벤트 전파 방지
+      dropdownEl.classList.remove('active'); // 드롭다운 닫기
+    });
+    // let ss = `<span>${selectOption}</span>`
+    li.setAttribute('data-value', item.option[selectOption])
+    li.appendChild(a);
+  }
   // 언어 번역
-    function updateLanguage(language, path) {
-      switch (path) {
+  function updateLanguage(language, path) {
+    // 쿼리 문자열 처리
+    const [cleanPath, queryString] = path.split('?');
+    const params = new URLSearchParams(queryString);
+    // lang 값 추출 (예: KO)
+    const langParam = params.get('lang');
+    // 언어 업데이트 (lang 값이 있을 경우 우선 사용)
+    const activeLanguage = langParam || language;
+    switch (path) {
       case "/index":
-        indexPageTranslate(language);
+        indexPageTranslate(activeLanguage);
         break;
       case "/":
-        indexPageTranslate(language);
+        indexPageTranslate(activeLanguage);
         break;
       case "/pages/contact":
-        contactPageTranslate(language);
+        contactPageTranslate(activeLanguage);
         break;
       case "/pages/policy/privacy-policy":
-        privacyPolicyPageTranslate(language);
+        privacyPolicyPageTranslate(activeLanguage);
         break;
       case "/pages/policy/terms-of-policy":
-        termsOfPolicy(language);
+        termsOfPolicy(activeLanguage);
         break;
+      case "/pages/manual":
+        termsOfPolicy(activeLanguage);
+      break;
       default:
         break;
-      }
-      // 드롭다운의 텍스트도 업데이트
-      const dropdown2 = document.querySelector('.dropdown2');
-      const options = dropdown2.querySelectorAll('.option-item');
-
-      options.forEach(option => {
-        const link = option.querySelector('a');
-        const key = link.textContent; // 예를 들어, '프로', 'IEA', '제이비트리'
-        const translated = language[key]; // 언어 JSON으로부터 번역된 텍스트 가져오기
-
-        if (translated) {
-          link.textContent = translated; // 텍스트 업데이트
-          localStorage.setItem('selectedOption', translated);
-        }
-      });
     }
-  // 1-3. 각 드롭다운에 맞게 초기화
-    // 실행문 : header dropdown
-    const dropdown1 = document.querySelector('.dropdown1');
-    initDropdown(dropdown1, ['KOR', 'ENG', 'JPN','VIET'], renderOptionWithImage); //['KOR', 'ENG', 'JPN','VIET']
-
-    // 실행문 : footer dropdown
+    // 드롭다운의 텍스트도 업데이트
     const dropdown2 = document.querySelector('.dropdown2');
-    initDropdown(dropdown2, [
-      {
-        option: {
-          'KOR':'프로',
-          'ENG':'Pro',
-          'JPN':'Pro',
-          'VIET':'Pro'
-        },
-        link: 'https://procorp.co.kr/'
+    const options = dropdown2.querySelectorAll('.option-item');
+
+    options.forEach(option => {
+      const link = option.querySelector('a');
+      const key = link.textContent; // 예를 들어, '프로', 'IEA', '제이비트리'
+      const translated = language[key]; // 언어 JSON으로부터 번역된 텍스트 가져오기
+
+      if (translated) {
+        link.textContent = translated; // 텍스트 업데이트
+        localStorage.setItem('selectedOption', translated);
+      }
+    });
+  }
+  // 1-3. 각 드롭다운에 맞게 초기화
+  // 실행문 : header dropdown
+  const dropdown1 = document.querySelector('.dropdown1');
+  initDropdown(dropdown1, ['KR', 'EN', 'CN','JP','VN'], renderOptionWithImage); //['KR', 'EN', 'JP','VN']
+
+  // 실행문 : footer dropdown
+  const dropdown2 = document.querySelector('.dropdown2');
+  initDropdown(dropdown2, [
+    {
+      option: {
+        'KR':'프로',
+        'EN':'Pro',
+        'CN':'Pro',
+        'JP':'Pro',
+        'VN':'Pro',
       },
-      {
-        option: {
-          'KOR':'IEA',
-          'ENG':'IEA',
-          'JPN':'IEA',
-          'VIET':'IEA'
-        },
-        link: 'https://www.iea.co.kr/'
+      link: 'https://procorp.co.kr/'
+    },
+    {
+      option: {
+        'KR':'IEA',
+        'EN':'IEA',
+        'CN':'IEA',
+        'JP':'IEA',
+        'VN':'IEA',
       },
-      {
-        option: {
-          'KOR':'제이비트리',
-          'ENG':'JBTree',
-          'JPN':'JBTree',
-          'VIET':'JBTree'
-        },
-        link: 'https://jbtree.co.kr/'
+      link: 'https://www.iea.co.kr/'
+    },
+    {
+      option: {
+        'KR':'제이비트리',
+        'EN':'JBTree',
+        'CN':'JBTree',
+        'JP':'JBTree',
+        'VN':'JBTree',
       },
-    ], renderOptionTextOnly, true);
+      link: 'https://jbtree.co.kr/'
+    },
+  ], renderOptionTextOnly, true);
 });
 
 
@@ -435,7 +450,7 @@ function indexPageTranslate(language) {
   }
   // sec7 슬라이더 실행
   loadSec7Slider();
-  
+
   // resize 시 swiper 초기화
   window.addEventListener("resize", () => {
     if (sec7SwiperSlide) {
@@ -443,7 +458,7 @@ function indexPageTranslate(language) {
     }
     loadSec7Slider();
   });
-  
+
   /* sec8 */
   document.querySelector('[data-translate="sec8_star"]').style = language.sec8_star;
   document.querySelector('[data-translate="sec8_btn"]').innerHTML = language.sec8_btn;
@@ -506,4 +521,9 @@ function termsOfPolicy(language) {
   document.querySelector('[data-translate="footer_4"]').innerText = language.footer_4;
   document.querySelector('[data-translate="footer_5"]').innerText = language.footer_5;
   document.querySelector('[data-translate="footer_6"]').innerText = language.footer_6;
+}
+
+/* manual 페이지 */
+function manaulTranslate (language) {
+
 }
