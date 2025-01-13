@@ -266,12 +266,11 @@ document.addEventListener("DOMContentLoaded", function(){
   // 언어 번역
   function updateLanguage(language, path) {
     // 쿼리 문자열 처리
-    alert(path,'ㅇ러ㅏ어')
     const [cleanPath, queryString] = path.split('?');
-    alert(cleanPath,queryString)
     const params = new URLSearchParams(queryString);
     // lang 값 추출 (예: KO)
     const langParam = params.get('lang');
+    alert(langParam,'파랕')
     // 언어 업데이트 (lang 값이 있을 경우 우선 사용)
     const activeLanguage = langParam || language;
     switch (path) {
@@ -292,7 +291,6 @@ document.addEventListener("DOMContentLoaded", function(){
         break;
       case "/pages/manual":
         selectedLanguageOption = params
-        alert(params)
         manaulTranslate(activeLanguage);
       break;
       default:
