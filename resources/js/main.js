@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function(){
   // 언어 번역
   function updateLanguage(language, path) {
     // 쿼리 문자열 처리
-    alert(path)
+    alert(path,'ㅇ러ㅏ어')
     const [cleanPath, queryString] = path.split('?');
     alert(cleanPath,queryString)
     const params = new URLSearchParams(queryString);
