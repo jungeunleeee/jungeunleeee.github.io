@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const params = new URLSearchParams(queryString);
     // lang 값 추출 (예: KO)
     const langParam = params.get('lang');
-    alert(langParam,'파랕')
+    alert(path,langParam,'파랕')
     // 언어 업데이트 (lang 값이 있을 경우 우선 사용)
     const activeLanguage = langParam || language;
     switch (path) {
