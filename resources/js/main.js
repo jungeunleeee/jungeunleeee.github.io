@@ -291,6 +291,7 @@ document.addEventListener("DOMContentLoaded", function(){
         break;
       case "/pages/manual":
         selectedLanguageOption = params
+        alert(params)
         manaulTranslate(activeLanguage);
       break;
       default:
