@@ -313,6 +313,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }*/
   function updateLanguage(language, path) {
+    console.log(originalPath)
     const [cleanPath, queryString] = path.split('?');
     const params = new URLSearchParams(queryString);
     const langParam = params.get('lang');
