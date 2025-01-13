@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function(){
     li.appendChild(a);
   }
   // 언어 번역
-  function updateLanguage(language, path) {
+  /*function updateLanguage(language, path) {
     // 쿼리 문자열 처리
     const [cleanPath, queryString] = path.split('?');
     const params = new URLSearchParams(queryString);
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function(){
         termsOfPolicy(activeLanguage);
         break;
       case "/pages/manual":
-        selectedLanguageOption = params
+        // selectedLanguageOption = params
         manaulTranslate(activeLanguage);
       break;
       default:
@@ -311,6 +311,36 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem('selectedOption', translated);
       }
     });
+  }*/
+  function updateLanguage(language, path) {
+    const [cleanPath, queryString] = path.split('?');
+    const params = new URLSearchParams(queryString);
+    const langParam = params.get('lang');
+
+    const activeLanguage = langParam || language;
+    switch (cleanPath) {
+      case "/index":
+        indexPageTranslate(activeLanguage);
+        break;
+      case "/":
+        indexPageTranslate(activeLanguage);
+        break;
+      case "/pages/contact":
+        contactPageTranslate(activeLanguage);
+        break;
+      case "/pages/policy/privacy-policy":
+        privacyPolicyPageTranslate(activeLanguage);
+        break;
+      case "/pages/policy/terms-of-policy":
+        termsOfPolicy(activeLanguage);
+        break;
+      case "/pages/manual":
+        selectedLanguageOption = params
+        manaulTranslate(activeLanguage);
+        break;
+      default:
+        break;
+    }
   }
   // 1-3. 각 드롭다운에 맞게 초기화
   // 실행문 : header dropdown
