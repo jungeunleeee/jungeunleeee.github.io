@@ -528,6 +528,7 @@ function manaulTranslate (language) {
   document.querySelector('[data-translate="m_sub1-3"]').innerHTML = language['m_sub1-3'];
   document.querySelector('[data-translate="m_title2"]').innerHTML = language.m_title2;
   document.querySelector('[data-translate="m_title3"]').innerHTML = language.m_title3;
+  document.querySelector('[data-translate="m_sub3-1"]').innerHTML = language['m_sub3-1'];
   document.querySelector('[data-translate="m_sub3-2"]').innerHTML = language['m_sub3-2'];
   document.querySelector('[data-translate="m_title4"]').innerHTML = language.m_title4;
   document.querySelector('[data-translate="m_sub4-1"]').innerHTML = language['m_sub4-1'];
