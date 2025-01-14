@@ -3,6 +3,9 @@ let locationPath = window.location.search
 let params = new URLSearchParams(locationPath);
 let lang = params.get('lang'); // "KO"
 let selectedLanguageOption = lang ? lang : localStorage.getItem('selectedOption') || 'KR';
+if(lang) {
+  localStorage.setItem('selectedOption', lang);
+}
 
 document.addEventListener("DOMContentLoaded", function(){
   /* [공통 상단] */
