@@ -1,10 +1,13 @@
 let sec7SwiperSlide; // sec7 슬라이더 선언
-let selectedLanguageOption = localStorage.getItem('selectedOption') || 'KR';
+let locationPath = window.location.search
+let params = new URLSearchParams(locationPath);
+let lang = params.get('lang'); // "KO"
+let selectedLanguageOption = lang ? lang : localStorage.getItem('selectedOption') || 'KR';
+
 document.addEventListener("DOMContentLoaded", function(){
   /* [공통 상단] */
   const originalPath = window.location.pathname === '/' ? '/index' : window.location.pathname.replace('.html', '');
   const path = originalPath.replace('.html', '')
-
   // console.log(originalPath)
   // 로컬 스토리지에 activeNavPath가 없으면 기본값으로 설정
   let activePath = path || '/index'
@@ -19,8 +22,9 @@ document.addEventListener("DOMContentLoaded", function(){
     let selectedFlagImage = flagImages[selectedOption];
     // 선택값 또는 이미지 파일명이 유효하지 않다면, 기본값으로 변경
     if(!selectedFlagImage) {
-      selectedOption = 'KR';
+      selectedOption = selectedLanguageOption;
     }
+    console.log(selectedFlagImage,selectedOption)
     // header html 추가
     const headerHtml = `
         <header>
@@ -148,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // 옵션 렌더링 함수
     function renderOptions(selected) {
+      console.log('renderOptions 선택',selected)
       optionList.innerHTML = ''; // 기존 옵션 초기화
       let filteredOptions = "";
       if(footer){
@@ -196,6 +201,12 @@ document.addEventListener("DOMContentLoaded", function(){
         // 드롭다운 닫기 및 옵션 재렌더링
         dropdownEl.classList.remove('active');
         renderOptions(option); // 선택된 항목 제외한 옵션 렌더링
+        // Now handle path specifically
+        if (path.startsWith("/pages/manual")) {
+          let url = new URL(window.location.href);
+          url.searchParams.set('lang', option);
+          window.history.replaceState({}, '', url);
+        }
         // 번역
         translateText(option,path)
         if(path === '/' || path === '/index') {
@@ -208,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function(){
     label.addEventListener('click', () => {
       const isActive = dropdownEl.classList.toggle('active');
       // 드롭다운을 열 때, 현재 선택된 값으로 옵션 렌더링
-      renderOptions(localStorage.getItem('selectedOption') || options[0]);
+      renderOptions((localStorage.getItem('selectedOption') ? localStorage.getItem('selectedOption') : 'KR'));
     });
     // 초기 옵션 렌더링
   }
@@ -251,7 +262,10 @@ document.addEventListener("DOMContentLoaded", function(){
   // 1-2. 텍스트만 포함된 옵션 렌더링 함수 (링크 이동)
   function renderOptionTextOnly(li, item,dropdownEl) {
     const a = document.createElement('a');
-    const selectOption =  localStorage.getItem('selectedOption') !== null ? localStorage.getItem('selectedOption') : 'KR'
+    const selectOption = lang ? lang : (localStorage.getItem('selectedOption') ? localStorage.getItem('selectedOption') : 'KR');
+    console.log(lang,'lang')
+    console.log(localStorage.getItem('selectedOption') ,'localStorage.getItem(\'selectedOption\') ')
+    console.log(selectOption,'renderOptionTextOnly')
     a.textContent = item.option[selectOption];
     a.href = item.link;
     a.target = '_blank';
@@ -264,80 +278,25 @@ document.addEventListener("DOMContentLoaded", function(){
     li.appendChild(a);
   }
   // 언어 번역
-  /*function updateLanguage(language, path) {
-    // 쿼리 문자열 처리
-    const [cleanPath, queryString] = path.split('?');
-    const params = new URLSearchParams(queryString);
-    // lang 값 추출 (예: KO)
-    const langParam = params.get('lang');
-    alert(language)
-    alert(path,langParam,'파랕')
-    // 언어 업데이트 (lang 값이 있을 경우 우선 사용)
-    const activeLanguage = langParam || language;
+  function updateLanguage(language, path) {
     switch (path) {
       case "/index":
-        indexPageTranslate(activeLanguage);
+        indexPageTranslate(language);
         break;
       case "/":
-        indexPageTranslate(activeLanguage);
+        indexPageTranslate(language);
         break;
       case "/pages/contact":
-        contactPageTranslate(activeLanguage);
+        contactPageTranslate(language);
         break;
       case "/pages/policy/privacy-policy":
-        privacyPolicyPageTranslate(activeLanguage);
+        privacyPolicyPageTranslate(language);
         break;
       case "/pages/policy/terms-of-policy":
-        termsOfPolicy(activeLanguage);
+        termsOfPolicy(language);
         break;
       case "/pages/manual":
-        // selectedLanguageOption = params
-        manaulTranslate(activeLanguage);
-      break;
-      default:
-        break;
-    }
-    // 드롭다운의 텍스트도 업데이트
-    const dropdown2 = document.querySelector('.dropdown2');
-    const options = dropdown2.querySelectorAll('.option-item');
-
-    options.forEach(option => {
-      const link = option.querySelector('a');
-      const key = link.textContent; // 예를 들어, '프로', 'IEA', '제이비트리'
-      const translated = language[key]; // 언어 JSON으로부터 번역된 텍스트 가져오기
-
-      if (translated) {
-        link.textContent = translated; // 텍스트 업데이트
-        localStorage.setItem('selectedOption', translated);
-      }
-    });
-  }*/
-  function updateLanguage(language, path) {
-    console.log(originalPath)
-    const [cleanPath, queryString] = path.split('?');
-    const params = new URLSearchParams(queryString);
-    const langParam = params.get('lang');
-
-    const activeLanguage = langParam || language;
-    switch (cleanPath) {
-      case "/index":
-        indexPageTranslate(activeLanguage);
-        break;
-      case "/":
-        indexPageTranslate(activeLanguage);
-        break;
-      case "/pages/contact":
-        contactPageTranslate(activeLanguage);
-        break;
-      case "/pages/policy/privacy-policy":
-        privacyPolicyPageTranslate(activeLanguage);
-        break;
-      case "/pages/policy/terms-of-policy":
-        termsOfPolicy(activeLanguage);
-        break;
-      case "/pages/manual":
-        selectedLanguageOption = params
-        manaulTranslate(activeLanguage);
+        manaulTranslate(language);
         break;
       default:
         break;
@@ -556,35 +515,38 @@ function termsOfPolicy(language) {
   document.querySelector('[data-translate="footer_5"]').innerText = language.footer_5;
   document.querySelector('[data-translate="footer_6"]').innerText = language.footer_6;
 }
-
 /* manual 페이지 */
 function manaulTranslate (language) {
   document.querySelector('[data-translate="m_title"]').innerHTML = language.m_title;
   document.querySelector('[data-translate="m_sub"]').innerHTML = language.m_sub;
   document.querySelector('[data-translate="m_title1"]').innerHTML = language.m_title1;
-  document.querySelector('[data-translate="m_sub1-1"]').innerHTML = language.m_sub1-1;
-  document.querySelector('[data-translate="m_sub1-2"]').innerHTML = language.m_sub1-2;
-  document.querySelector('[data-translate="m_sub1-3"]').innerHTML = language.m_sub1-3;
+  document.querySelector('[data-translate="m_sub1-1"]').innerHTML = language['m_sub1-1'];
+  document.querySelector('[data-translate="m_sub1-2"]').innerHTML = language['m_sub1-2'];
+  document.querySelector('[data-translate="m_sub1-3"]').innerHTML = language['m_sub1-3'];
   document.querySelector('[data-translate="m_title2"]').innerHTML = language.m_title2;
   document.querySelector('[data-translate="m_title3"]').innerHTML = language.m_title3;
-  document.querySelector('[data-translate="m_sub3-1"]').innerHTML = language.m_sub3-1;
-  document.querySelector('[data-translate="m_sub3-2"]').innerHTML = language.m_sub3-2;
+  document.querySelector('[data-translate="m_sub3-2"]').innerHTML = language['m_sub3-2'];
   document.querySelector('[data-translate="m_title4"]').innerHTML = language.m_title4;
-  document.querySelector('[data-translate="m_sub4-1"]').innerHTML = language.m_sub4-1;
-  document.querySelector('[data-translate="m_sub4-2"]').innerHTML = language.m_sub4-2;
-  document.querySelector('[data-translate="m_title5"]').innerHTML = language.m_title5;
-  document.querySelector('[data-translate="m_sub5-1"]').innerHTML = language.m_sub5-1;
-  document.querySelector('[data-translate="m_sub5-2"]').innerHTML = language.m_sub5-2;
+  document.querySelector('[data-translate="m_sub4-1"]').innerHTML = language['m_sub4-1'];
+  document.querySelector('[data-translate="m_sub4-2"]').innerHTML = language['m_sub4-2'];
+  document.querySelector('[data-translate="m_title5"]').innerHTML = language['m_title5'];
+  document.querySelector('[data-translate="m_sub5-1"]').innerHTML = language['m_sub5-1'];
+  document.querySelector('[data-translate="m_sub5-2"]').innerHTML = language['m_sub5-2'];
   document.querySelector('[data-translate="m_title6"]').innerHTML = language.m_title6;
-  document.querySelector('[data-translate="m_sub6-1"]').innerHTML = language.m_sub6-1;
-  document.querySelector('[data-translate="m_sub6-2"]').innerHTML = language.m_sub6-2;
+  document.querySelector('[data-translate="m_sub6-1"]').innerHTML = language['m_sub6-1'];
+  document.querySelector('[data-translate="m_sub6-2"]').innerHTML = language['m_sub6-2'];
   document.querySelector('[data-translate="m_title7"]').innerHTML = language.m_title7;
-  document.querySelector('[data-translate="m_sub7-1"]').innerHTML = language.m_sub7-1;
+  document.querySelector('[data-translate="m_sub7-1"]').innerHTML = language['m_sub7-1'];
   document.querySelector('[data-translate="m_title8"]').innerHTML = language.m_title8;
-  document.querySelector('[data-translate="m_sub8-1"]').innerHTML = language.m_sub8-1;
-  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language.m_sub8-2;
-  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language.m_sub8-2;
-  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language.m_sub8-2;
+  document.querySelector('[data-translate="m_sub8-1"]').innerHTML = language['m_sub8-1'];
+  document.querySelector('[data-translate="m_sub8-2"]').innerHTML = language['m_sub8-2'];
   document.querySelector('[data-translate="m_comment1"]').innerHTML = language.m_comment1;
   document.querySelector('[data-translate="m_comment2"]').innerHTML = language.m_comment2;
+  /* sec8 */
+  document.querySelector('[data-translate="footer_1"]').innerText = language.footer_1;
+  document.querySelector('[data-translate="footer_2"]').innerText = language.footer_2;
+  document.querySelector('[data-translate="footer_3"]').innerText = language.footer_3;
+  document.querySelector('[data-translate="footer_4"]').innerText = language.footer_4;
+  document.querySelector('[data-translate="footer_5"]').innerText = language.footer_5;
+  document.querySelector('[data-translate="footer_6"]').innerText = language.footer_6;
 }
