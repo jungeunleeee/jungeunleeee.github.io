@@ -372,6 +372,10 @@
       closeModal(openModalName);
     }
   }
+  // 윈도우 크기 변화 시
+  window.addEventListener('resize', function () {
+    adjustPopupHeight('#modla1');
+  });
 
   /* 모달창 열기 */
   function openModal (modalName) {
@@ -388,6 +392,7 @@
       modalElement.style.display = 'none';
       document.body.style.overflow = 'auto';
       currentActiveStep = 'p-step1'
+      openModalName = ''
 
       /* [개별 기능]] */
       /* 1. [팝업명] 스크래핑(서류 제출 자동화) 서비스 이용 동의서  */
@@ -419,9 +424,10 @@
     } else {
       modalContent.style.height = 'auto';
       modalContent.style.maxHeight = '850px';
-      modalBody.style.height = `calc(${100 * vh}px - 144px)`;
+      modalBody.style.height = `598px`;
     }
   }
+
   /* popup - 팝업 안의 내용 */
   function showNextStep(currentStep,nextStep) {
     // Step 1일 때만 현재 스텝 숨기기

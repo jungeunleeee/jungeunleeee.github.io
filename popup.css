@@ -111,7 +111,7 @@ button {background: transparent;color: inherit;border: none;padding: 0;font: inh
 @media(max-width:1440px) {
     /* popup - 기본 모달 디자인 */
     .only-mobile {display: block!important;}
-    .dy-modal-content {padding-top:72px;padding-bottom:70px;max-height:initial;border-radius:12px;}
+    .dy-modal-content {padding-top:72px;padding-bottom:70px;max-height:initial;max-width:100%;border-radius:12px;}
     .dy-header{padding:20px 20px 10px 20px;height:72px;}
     .dy-header > h5 {text-align:left;font-size:18px;width:calc(100% - 20px);padding-left:0;}
     .dy-header > .dy-close-btn{width:20px;height:20px;background-size:20px;}
