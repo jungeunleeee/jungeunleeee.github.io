@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양4</h1>
+<h1>동양5</h1>
 <button class="modal-btn" href="#modla1" onclick="openModal('#modla1')">1번 팝업</button>
 <button class="modal-btn" href="#modal2" onclick="openModal('#modal2')">2번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
@@ -429,14 +429,16 @@
       document.querySelector(`[data-step="${currentStep}"]`).style.display='none';
     }
     // 다음 스텝 보이기
-    if (nextStep) {
-      document.querySelectorAll(`[data-step="${nextStep}"]`).forEach(element => {
-        element.style.display = 'block';
-      });
-      if(nextStep === 'step2') {
-        document.querySelector(`tr[data-step="p-step1"]`).style.display='block';
+    setTimeout(function() {
+      if (nextStep) {
+        document.querySelectorAll(`[data-step="${nextStep}"]`).forEach(element => {
+          element.style.display = 'block';
+        });
+        if(nextStep === 'step2') {
+          document.querySelector(`tr[data-step="p-step1"]`).style.display='block';
+        }
       }
-    }
+    },10)
   }
   function goNext(activeStep) {
     activeStep = currentActiveStep
