@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>다시</h1>
+<h1>동양</h1>
 <button class="modal-btn" href="#modla1" onclick="openModal('#modla1')">1번 팝업</button>
 <button class="modal-btn" href="#modal2" onclick="openModal('#modal2')">2번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
@@ -408,14 +408,15 @@
   function adjustPopupHeight(modalName) {
     const iw = window.innerWidth;
     const popup = document.querySelector(modalName);
+    const modalContent = popup.querySelector('.dy-modal-content');
 
-    if (iw <= 700) {
+    if (iw <= 1440) {
       const vh = window.innerHeight * 0.01;
-      popup.style.height = `${100 * vh}px`;
-      popup.style.minHeight = '100%'; // 기존 스타일 초기화
+      modalContent.style.height = `${100 * vh}px`;
+      modalContent.style.minHeight = '100%'; // 기존 스타일 초기화
     } else {
-      popup.style.height = 'auto';
-      popup.style.minHeight = '100vh';
+      modalContent.style.height = 'auto';
+      modalContent.style.minHeight = '100vh';
     }
   }
   /* popup - 팝업 안의 내용 */
