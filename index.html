@@ -409,7 +409,7 @@
     const iw = window.innerWidth;
     const popup = document.querySelector(modalName);
     const modalContent = popup.querySelector('.dy-modal-content');
-    const modalBody = modalContent.querySelectorAll(`.dy-body`);
+    const modalBody = modalContent.querySelector(`.dy-body`);
 
     if (iw <= 1440) {
       const vh = window.innerHeight * 0.01;
