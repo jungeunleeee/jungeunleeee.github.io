@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양3</h1>
+<h1>동양4</h1>
 <button class="modal-btn" href="#modla1" onclick="openModal('#modla1')">1번 팝업</button>
 <button class="modal-btn" href="#modal2" onclick="openModal('#modal2')">2번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
@@ -409,7 +409,7 @@
     const iw = window.innerWidth;
     const popup = document.querySelector(modalName);
     const modalContent = popup.querySelector('.dy-modal-content');
-    const modalBody = modalContent.querySelector(`dy-body`);
+    const modalBody = modalContent.querySelectorAll(`.dy-body`);
 
     if (iw <= 1440) {
       const vh = window.innerHeight * 0.01;
