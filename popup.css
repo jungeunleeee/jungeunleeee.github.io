@@ -25,7 +25,7 @@ button {background: transparent;color: inherit;border: none;padding: 0;font: inh
 .mt-sm {margin-top:4px;}
 .mt-sm2{margin-top:12px;}
 
-    /* popup - 기본 모달 디자인 */
+/* popup - 기본 모달 디자인 */
 .dy-modal *{box-sizing:border-box;font-family:'Pretendard','sans-serif'}
 .dy-modal {display: none;position: fixed;z-index: 100;left: 0;top: 0;width: 100%;height: 100%;align-items:center;justify-content:center;overflow: auto;background-color: #000;background-color: rgba(0, 0, 0, .4)}
 .dy-modal-content {max-height:850px;position:relative;background-color:#fff;margin: auto;overflow:hidden;padding-top:128px;padding-bottom:124px;border: 1px solid #888;border-radius:20px;width: 100%;max-width:1240px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);-webkit-animation-name: animatetop;-webkit-animation-duration: .4s;animation-name: animatetop;animation-duration: .4s}
@@ -139,8 +139,6 @@ button {background: transparent;color: inherit;border: none;padding: 0;font: inh
     .cm_btn.size-sm{width:100%;padding-left:10px;padding-right:10px;}
     .cm_sim_btn{width:45px;height:36px;border-radius:8px;font-size:12px}
     .cm_sim_btn.size-auto {width:100%;height:40px;padding-left:10px;padding-right:10px;font-size:14px;}
-
-
 
     /* popup - list , text */
     .dy-dot-list > li {font-size:12px;padding-left:7px;}

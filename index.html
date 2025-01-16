@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양5</h1>
-<button class="modal-btn" href="#modla1" onclick="openModal('#modla1')">1번 팝업</button>
-<button class="modal-btn" href="#modal2" onclick="openModal('#modal2')">2번 팝업</button>
+<h1>동양-완성</h1>
+<button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
     <div class="dy-modal-content">
@@ -308,17 +307,7 @@
         </div>
     </div>
 </div>
-<div id="modal2" class="dy-modal">
-    <div class="dy-modal-content">
-        <div class="dy-header">
-            <h5>두번째</h5>
-            <button type="button" class="dy-close-btn close" onclick="closeModal('#modal2')"><span class="blind-txt">닫기</span></button>
-        </div>
-        <div class="dy-body">
-            두번째 팝업
-        </div>
-    </div>
-</div>
+
 <!-- // 팝업추가 -->
 </body>
 </html>
@@ -372,7 +361,7 @@
       closeModal(openModalName);
     }
   }
-  // 윈도우 크기 변화 시
+  /* 윈도우 리사이즈 시 : 팝업창 높이 다시잡기 실행 */
   window.addEventListener('resize', function () {
     adjustPopupHeight('#modla1');
   });
@@ -409,7 +398,7 @@
   /* ------------------------------------------------------------------------------- */
 
   /* ---- [팝업] : '스크래핑(서류 제출 자동화) 서비스 이용 동의서' 관련 함수 -- */
-  /* popup - 높이 잡기 */
+  /* popup - 높이 잡기(반응형, 모바일 하단 바 고려) */
   function adjustPopupHeight(modalName) {
     const iw = window.innerWidth;
     const popup = document.querySelector(modalName);
