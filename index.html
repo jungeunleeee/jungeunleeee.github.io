@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>dsjfkjdsflksld</h1>
+<h1>다시</h1>
 <button class="modal-btn" href="#modla1" onclick="openModal('#modla1')">1번 팝업</button>
 <button class="modal-btn" href="#modal2" onclick="openModal('#modal2')">2번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
@@ -377,6 +377,7 @@
   function openModal (modalName) {
     openModalName = modalName
     document.querySelector(modalName).style.display = 'flex';
+    adjustPopupHeight(modalName);
     document.body.style.overflow = 'hidden';
   }
   /* 모달창 닫기 */
@@ -403,6 +404,20 @@
   /* ------------------------------------------------------------------------------- */
 
   /* ---- [팝업] : '스크래핑(서류 제출 자동화) 서비스 이용 동의서' 관련 함수 -- */
+  /* popup - 높이 잡기 */
+  function adjustPopupHeight(modalName) {
+    const iw = window.innerWidth;
+    const popup = document.querySelector(modalName);
+
+    if (iw <= 700) {
+      const vh = window.innerHeight * 0.01;
+      popup.style.height = `${100 * vh}px`;
+      popup.style.minHeight = '100%'; // 기존 스타일 초기화
+    } else {
+      popup.style.height = 'auto';
+      popup.style.minHeight = '100vh';
+    }
+  }
   /* popup - 팝업 안의 내용 */
   function showNextStep(currentStep,nextStep) {
     // Step 1일 때만 현재 스텝 숨기기
