@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양-완성</h1>
+<h1>동양저축은행 팝업 예시</h1>
 <button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
@@ -317,103 +317,6 @@
 </body>
 </html>
 <script>
-  /* 데이트피커 임시 */
-  document.addEventListener('DOMContentLoaded', function() {
-    flatpickr("#dy-birth", {
-      dateFormat: "Y-m-d",       // 내부적으로 사용하는 날짜 형식
-      minDate: "1900-01-01",     // 최소 날짜
-      maxDate: "today",          // 최대 날짜 (오늘까지 선택 가능)
-      locale: "ko",              // 한국어 로케일 설정
-      mode: "single", // 기본 모드
-      yearSelectorType: "dropdown", // 드롭다운으로 변경
-      monthSelectorType: "static", // 년도를 선택할 수 있는 드롭다운 메뉴 활성화
-      onChange: function(selectedDates, dateStr, instance) {
-        // 날짜 형식을 'YYYYMMDD'로 변환
-        const formattedDate = instance.formatDate(selectedDates[0], "Ymd");
-        instance.value = formattedDate; // 입력 필드에 'YYYYMMDD' 형식으로 업데이트
-        if(validateStep(this)) {
-          goNext(currentActiveStep);
-        }
-      }
-    });
-  });
-  /*mobiscroll.localeKo = {
-    dateFormat: 'yyyy-mm-dd',
-    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-    monthNames: [
-      '1월', '2월', '3월', '4월', '5월', '6월',
-      '7월', '8월', '9월', '10월', '11월', '12월'
-    ],
-    monthNamesShort: [
-      '1월', '2월', '3월', '4월', '5월', '6월',
-      '7월', '8월', '9월', '10월', '11월', '12월'
-    ],
-    today: '오늘',
-    cancelText: '취소',
-    setText: '확인'
-  };
-  mobiscroll.datepicker('#dy-birth', {
-    theme: 'ios',
-    display: 'center',
-    dateFormat: 'YYYY-MM-DD',
-    max: new Date(),
-    locale: mobiscroll.localeKo
-  });*/
-  /*jQuery(function($){
-    $.datepicker.regional["ko"] = {
-      closeText: "닫기",
-      prevText: "이전달",
-      nextText: "다음달",
-      currentText: "오늘",
-      monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
-      monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
-      dayNames: ["일","월","화","수","목","금","토"],
-      dayNamesShort: ["일","월","화","수","목","금","토"],
-      dayNamesMin: ["일","월","화","수","목","금","토"],
-      weekHeader: "Wk",
-      dateFormat: "yymmdd",
-      firstDay: 0,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: ""
-    };
-    $.datepicker.setDefaults($.datepicker.regional["ko"]);
-
-    $("#dy-birth").datepicker({
-      showAnim: "slideDown",
-      changeMonth: true,
-      changeYear: true,
-      maxDate: 0 , // 오늘 날짜
-      yearRange: "1900:" + new Date().getFullYear(),
-      onSelect: function(dateText) {
-        if(validateStep(this)) {
-          goNext(currentActiveStep);
-        }
-      },
-      beforeShow: function(input, inst) {
-        // 모바일 화면에서 Datepicker 위치 강제 조정
-        setTimeout(function() {
-          inst.dpDiv.css({
-            top: $(input).offset().top + $(input).outerHeight(),
-            left: $(input).offset().left,
-            position: "absolute"
-          });
-        }, 0);
-      }
-    });
-  });*/
-  /*new Pikaday({
-    field: document.getElementById('dy-birth'),
-    format: 'YYYY-MM-DD', // PHP와 호환 가능한 날짜 형식
-    i18n: {
-      previousMonth: '이전 달',
-      nextMonth: '다음 달',
-      months: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      weekdays: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-      weekdaysShort: ['일', '월', '화', '수', '목', '금', '토']
-    }
-  });*/
   /* 20250115 팝업 */
   /* ---- [팝업 공통 변수] ---------------------------------------------------------- */
   let openModalName = '' // 열린 팝업이름 저장
@@ -421,6 +324,7 @@
   /* ---- [팝업 개별 변수] ---------------------------------------------------------- */
   /* 1. [팝업명] 스크래핑(서류 제출 자동화) 서비스 이용 동의서 : 관련 변수 저장 */
   let currentActiveStep = 'p-step1';
+  let fp; // flatpickr 인스턴스를 유지하기 위한 변수
   /* 유효성 검사 */
   const stepMapping = {
     1: ['name'],
@@ -443,6 +347,26 @@
   let resultPopupArgreementData = {}; // 전달할 데이터 저장
 
   /* ---- [팝업 공통 함수] ---------------------------------------------------------- */
+  /* 데이트 피커 : flatpickr */
+  function initializeFlatpickr() {
+    if (fp) {
+      fp.destroy(); // 기존 인스턴스가 있으면 제거
+    }
+
+    fp = flatpickr("#dy-birth", {
+      dateFormat: "Ymd",
+      minDate: "1900-01-01",
+      maxDate: "today",
+      locale: "ko",
+      onChange: function(selectedDates, dateStr, instance) {
+        const formattedDate = instance.formatDate(selectedDates[0], "Ymd");
+        instance.value = formattedDate;
+        if(validateStep(this)) {
+          goNext(currentActiveStep);
+        }
+      }
+    });
+  }
   /* 외부 클릭시 팝업 닫힘 */
   window.onclick = function(event) {
     if (event.target.classList.contains('dy-modal')) {
@@ -474,6 +398,9 @@
     document.querySelector(modalName).style.display = 'flex';
     adjustPopupHeight(modalName);
     document.body.style.overflow = 'hidden';
+    if(modalName === '#modla1'){
+      initializeFlatpickr();
+    }
   }
   /* 모달창 닫기 */
   function closeModal(modalName) {
@@ -559,7 +486,12 @@
           }
 
           // 데이터를 resultPopupArgreementData 객체에 저장
-          resultPopupArgreementData[`step${i}`][inputs[j]] = inputElement.value;
+          if (inputId === 'dy-birth') {
+            const noDashDate = inputElement.value.replace(/-/g, ''); // 모든 - 제거
+            resultPopupArgreementData[`step${i}`][inputs[j]] = noDashDate;
+          } else {
+            resultPopupArgreementData[`step${i}`][inputs[j]] = inputElement.value;
+          }
         }
       }
     }
