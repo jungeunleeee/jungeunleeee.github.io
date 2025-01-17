@@ -159,8 +159,8 @@
                             <th><div class="dy-th-wrap">생년월일</div></th>
                             <td>
                                 <div class="dy-td-wrap">
-                                    <div class="dy-input-box size-rgl">ㄴ
-                                        <input id="dy-birth" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>
+                                    <div class="dy-input-box  size-rgl">
+                                        <input id="dy-birth" class="calendar-ver" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909" readonly/>
                                     </div>
                                 </div>
                             </td>
@@ -311,7 +311,43 @@
 <!-- // 팝업추가 -->
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script>
+  /* 데이트피커 임시 */
+  jQuery(function($){
+    $.datepicker.regional["ko"] = {
+      closeText: "닫기",
+      prevText: "이전달",
+      nextText: "다음달",
+      currentText: "오늘",
+      monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
+      monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
+      dayNames: ["일","월","화","수","목","금","토"],
+      dayNamesShort: ["일","월","화","수","목","금","토"],
+      dayNamesMin: ["일","월","화","수","목","금","토"],
+      weekHeader: "Wk",
+      dateFormat: "yymmdd",
+      firstDay: 0,
+      isRTL: false,
+      showMonthAfterYear: true,
+      yearSuffix: ""
+    };
+    $.datepicker.setDefaults($.datepicker.regional["ko"]);
+
+    $("#dy-birth").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      maxDate: 0 , // 오늘 날짜
+      yearRange: "1900:" + new Date().getFullYear(),
+      onSelect: function(dateText) {
+        if(validateStep(this)) {
+          goNext(currentActiveStep);
+        }
+      }
+    });
+  });
   /* 20250115 팝업 */
   /* ---- [팝업 공통 변수] ---------------------------------------------------------- */
   let openModalName = '' // 열린 팝업이름 저장
@@ -534,7 +570,7 @@
 
     for(var i = 0; i < inputs.length; i++) {
       inputs[i].addEventListener('input', function(e) {
-        if(validateInput(e.target)) { // validateInput 함수는 입력 값을 검증하고, 이것이 유효할 때만 true를 반환
+        if(validateStep(currentActiveStep)) { // 각 단계의 입력이 유효하면 다음 단계로 넘어감
           goNext(currentActiveStep);
         }
       });
@@ -563,6 +599,15 @@
     } else if (input.id === 'dy-address2') {
       return input.value.trim().length >= 1;
     }
+  }
+  function validateStep(step) {
+    let inputs = document.querySelectorAll(`[data-step="${step}"] input`);
+    for(let i = 0; i < inputs.length; i++) {
+      if(!validateInput(inputs[i])) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /* popup - 관련 버튼 모음 */

@@ -87,7 +87,8 @@ button {background: transparent;color: inherit;border: none;padding: 0;font: inh
 .dy-input-box.size-rgl{width:260px;}
 .dy-input-box.size-sm{width:160px;}
 .dy-input-box.size-xsm{width:100px;}
-.dy-input-box > input{width:100%;border:1px solid #ddd;border-radius:6px;height:42px;padding:12px 10px 11px 10px;color:#4d4d4d;font-size:16px;}
+.dy-input-box > input{width:100%;border:1px solid #ddd;border-radius:6px;height:42px;padding:12px 26px 11px 10px;color:#4d4d4d;font-size:16px;}
+.dy-input-box > input.calendar-ver {background:url("dy_ico_calendar.svg") right 10px center no-repeat;background-size:16px;}
 .dy-input-box > input:focus{outline:none;border-color:#FFBF00;}
 .dy-input-box > input::placeholder{color:#8d8d8d;}
 /* popup - select */
@@ -148,7 +149,7 @@ button {background: transparent;color: inherit;border: none;padding: 0;font: inh
     .dy-star-list > li {font-size:11px;padding-left:7px;}
     .dy-num-list{align-items:flex-start;}
     .dy-num-list > li {width:20%;gap:4px;}
-    .dy-num-list > li + li::after {top:15px;}
+    .dy-num-list > li + li::after {top:15px;left:-50%;}
     .dy-num-list > li > span.dy-num {width:32px;height:32px;font-size:16px;}
     .dy-num-list > li > span.dy-txt{font-size:11px;}
     .dy-num-list > li.dy-process-finish > span.dy-num {background:#FFBF00 url("dy_ico_check.svg") center center no-repeat;background-size:14px;}
