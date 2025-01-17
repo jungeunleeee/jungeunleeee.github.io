@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양저축은행 팝업 예시-피커수정중1</h1>
+<h1>동양저축은행 팝업 예시-피커수정중2</h1>
 <button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
@@ -509,7 +509,7 @@
       document.querySelectorAll(`ul.dy-num-list li[data-step="${currentActiveStep}"]`).forEach(element => {
         element.classList.add('dy-process-ing');
       });
-      if(nextStep === 3) {
+      if(nextStep === 2) {
         initializeFlatpickr();
       }
       /* step5 일경우 다음에 보여야 할 버튼 : 제출버튼으로 변경 */
