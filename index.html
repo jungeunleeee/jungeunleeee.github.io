@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양저축은행 팝업 예시-피커수정6s</h1>
+<h1>동양저축은행 팝업 예시sdfdsfsdf</h1>
 <button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
@@ -392,8 +392,12 @@
     observer.observe(targetNode, config);
   }
   function initializeFlatpickr() {
+    if (fp) {
+      fp.destroy(); // 기존 인스턴스가 있으면 제거
+    }
     setTimeout(function() {
       fp = flatpickr("#dy-birth", {
+        disableMobile: "true", // 모바일 기능 비활성화
         dateFormat: "Ymd",
         minDate: "1900-01-01",
         maxDate: "today",
@@ -401,13 +405,13 @@
         onChange: function(selectedDates, dateStr, instance) {
           const formattedDate = instance.formatDate(selectedDates[0], "Ymd");
           instance.value = formattedDate;
+          document.querySelector('#dy-birth').value = formattedDate;
           if(validateStep(this)) {
             goNext(currentActiveStep);
           }
         }
       });
     },20)
-
   }
   /* 외부 클릭시 팝업 닫힘 */
   window.onclick = function(event) {
@@ -526,7 +530,7 @@
 
           // 데이터를 resultPopupArgreementData 객체에 저장
           if (inputId === 'dy-birth') {
-            const noDashDate = inputElement.value.replace(/-/g, ''); // 모든 - 제거
+            const noDashDate = inputElement.value.replace(/-/g, ''); // 모든 - 제거dd qx
             resultPopupArgreementData[`step${i}`][inputs[j]] = noDashDate;
           } else {
             resultPopupArgreementData[`step${i}`][inputs[j]] = inputElement.value;
@@ -552,18 +556,13 @@
         element.classList.add('dy-process-ing');
       });
       if(nextStep === 2) {
-        setTimeout(function() {
-          initializeFlatpickr();
-        },10)
+        initializeFlatpickr();
       }
       /* step5 일경우 다음에 보여야 할 버튼 : 제출버튼으로 변경 */
       if(nextStep === 5) {
         document.querySelector('#submitAgreement').style.display = 'flex';
       }
     }
-  }
-  function completeSteps() {
-    alert('모든 스텝이 완료되었습니다!');
   }
   /* popup - 닫혔을 시 초기화 기능 */
   function resetSteps(tableName) {
@@ -669,6 +668,7 @@
 
     if(invalidInput) {
       const fieldLabel = inputAlertMapping[invalidInput.id] || invalidInput.id;
+      alert(inputAlertMapping[invalidInput.id] || invalidInput.id)
       alert(`"${fieldLabel}" 값을 입력해주세요`);
       return;
     } else {
