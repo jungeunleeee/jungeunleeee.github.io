@@ -160,7 +160,7 @@
                             <td>
                                 <div class="dy-td-wrap">
                                     <div class="dy-input-box size-rgl">
-                                        <input id="dy-birth" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>
+                                        <input id="dy-birth" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>
                                     </div>
                                 </div>
                             </td>
@@ -390,6 +390,7 @@
         document.querySelector(`[data-step="step1"]`).style.display='block';
         document.querySelector(`[data-step="step2"]`).style.display='none';
         document.querySelector("[data-step='step3']").style.display = 'none';
+        document.querySelector('#submitAgreement').style.display = 'none';
         document.querySelector("#dy-error").style.display = 'none';
         resetSteps('modal_scaping_service_agreement');
       }
@@ -459,9 +460,6 @@
           resultPopupArgreementData[`step${i}`][inputs[j]] = inputElement.value;
         }
       }
-
-      // 모든 데이터가 저장된 결과를 출력하거나 처리
-      console.log("Collected data:", resultPopupArgreementData);
     }
     document.querySelectorAll(`ul.dy-num-list li[data-step="p-step${step}"]`).forEach(element => {
       element.classList.remove('dy-process-ing');
