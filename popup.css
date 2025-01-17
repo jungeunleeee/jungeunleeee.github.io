@@ -92,7 +92,8 @@ button {background: transparent;color: inherit;border: none;padding: 0;font: inh
 .dy-input-box.size-sm{width:160px;}
 .dy-input-box.size-xsm{width:100px;}
 .dy-input-box > input{width:100%;border:1px solid #ddd;border-radius:6px;height:42px;padding:12px 26px 11px 10px;color:#4d4d4d;font-size:16px;}
-.dy-input-box > input.calendar-ver {background:  url("dy_ico_calendar.svg") right 10px center no-repeat;background-size:16px;}
+.dy-input-box.calendar-box{position: relative;}
+.dy-input-box.calendar-box::after{content:'';width:26px;height:100%;background:  url("dy_ico_calendar.svg") left center no-repeat;background-size:16px;position:absolute;;right:0;top:50%;transform:translateY(-50%);}
 .dy-input-box > input.calendar-ver > input {text-align: left!important;}
 .dy-input-box > input:focus{outline:none;border-color:#FFBF00;}
 .dy-input-box > input::placeholder{color:#8d8d8d;}
