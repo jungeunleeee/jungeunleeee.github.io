@@ -326,12 +326,28 @@
 
 <script>
   /* 데이트피커 임시 */
+  mobiscroll.localeKo = {
+    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    monthNames: [
+      '1월', '2월', '3월', '4월', '5월', '6월',
+      '7월', '8월', '9월', '10월', '11월', '12월'
+    ],
+    monthNamesShort: [
+      '1월', '2월', '3월', '4월', '5월', '6월',
+      '7월', '8월', '9월', '10월', '11월', '12월'
+    ],
+    today: '오늘',
+    cancelText: '취소',
+    setText: '확인'
+  };
   mobiscroll.datepicker('#dy-birth', {
     controls: ['calendar'],       // More info about controls: https://mobiscroll.com/docs/javascript/datepicker/api#opt-controls
     showOnClick: true,           // More info about showOnClick: https://mobiscroll.com/docs/javascript/datepicker/api#opt-showOnClick
     showOnFocus: true,
     min: new Date(1900,0,1), // 1900년 1월 1일
     max: new Date(), // 현재 날짜// Specify display mode like: display: 'bottom' or omit setting to use default
+    locale: mobiscroll.localeKo
   });
   /*mobiscroll.localeKo = {
     dateFormat: 'yyyy-mm-dd',
