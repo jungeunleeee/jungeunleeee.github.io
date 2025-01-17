@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양저축은행 팝업 예시-피커수정4</h1>
+<h1>동양저축은행 팝업 예시-피커수정5</h1>
 <button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
@@ -349,7 +349,7 @@
   /* 데이트 피커 : flatpickr */
   let observer;  // MutationObserver를 전역 변수로 추가
 
-  function initializeFlatpickr() {
+  function initializeFlatpickr1() {
     if (fp) {
       fp.destroy();  // 기존 인스턴스가 있으면 제거
       observer.disconnect();  // 기존 observer가 있으면 연결 종료
@@ -391,6 +391,27 @@
     const targetNode = document.querySelector('tr[data-step="p-step2"]');
     observer.observe(targetNode, config);
   }
+  function initializeFlatpickr() {
+    if (fp) {
+      fp.destroy(); // 기존 인스턴스가 있으면 제거
+    }
+    setTimeout(function() {
+      fp = flatpickr("#dy-birth", {
+        dateFormat: "Ymd",
+        minDate: "1900-01-01",
+        maxDate: "today",
+        locale: "ko",
+        onChange: function(selectedDates, dateStr, instance) {
+          const formattedDate = instance.formatDate(selectedDates[0], "Ymd");
+          instance.value = formattedDate;
+          if(validateStep(this)) {
+            goNext(currentActiveStep);
+          }
+        }
+      });
+    },20)
+
+  }
   /* 외부 클릭시 팝업 닫힘 */
   window.onclick = function(event) {
     if (event.target.classList.contains('dy-modal')) {
@@ -421,7 +442,6 @@
     openModalName = modalName
     document.querySelector(modalName).style.display = 'flex';
     adjustPopupHeight(modalName);
-    initializeFlatpickr()
     document.body.style.overflow = 'hidden';
   }
   /* 모달창 닫기 */
