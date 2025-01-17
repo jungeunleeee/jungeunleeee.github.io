@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양저축은행 팝업 예시-피커수정중</h1>
+<h1>동양저축은행 팝업 예시-피커수정중1</h1>
 <button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
@@ -397,9 +397,6 @@
     document.querySelector(modalName).style.display = 'flex';
     adjustPopupHeight(modalName);
     document.body.style.overflow = 'hidden';
-    if(modalName === '#modla1'){
-      initializeFlatpickr();
-    }
   }
   /* 모달창 닫기 */
   function closeModal(modalName) {
@@ -487,6 +484,7 @@
           // 데이터를 resultPopupArgreementData 객체에 저장
           if (inputId === 'dy-birth') {
             const noDashDate = inputElement.value.replace(/-/g, ''); // 모든 - 제거
+            initializeFlatpickr()
             resultPopupArgreementData[`step${i}`][inputs[j]] = noDashDate;
           } else {
             resultPopupArgreementData[`step${i}`][inputs[j]] = inputElement.value;
