@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="mobiscroll.javascript.min.css" rel="stylesheet" />
+    <script src="mobiscroll.javascript.min.js"></script>
+
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -159,9 +163,10 @@
                             <th><div class="dy-th-wrap">생년월일</div></th>
                             <td>
                                 <div class="dy-td-wrap">
-                                    <div class="dy-input-box  size-rgl">
-                                        <input id="dy-birth" class="calendar-ver" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>
-                                    </div>
+                                    <!--                                        <input id="dy-birth" class="calendar-ver" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>-->
+                                    <label class="dy-input-box  size-rgl">
+                                        <input id="dy-birth" class="calendar-ver" type="text"  placeholder="* 8자리 기입, 예시 : 19990909"/>
+                                    </label>
                                 </div>
                             </td>
                         </tr>
@@ -311,15 +316,45 @@
 <!-- // 팝업추가 -->
 </body>
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
+
 <script>
   /* 데이트피커 임시 */
-  jQuery(function($){
+  mobiscroll.datepicker('#dy-birth', {
+    controls: ['calendar'],       // More info about controls: https://mobiscroll.com/docs/javascript/datepicker/api#opt-controls
+    showOnClick: true,           // More info about showOnClick: https://mobiscroll.com/docs/javascript/datepicker/api#opt-showOnClick
+    showOnFocus: true,           // Specify display mode like: display: 'bottom' or omit setting to use default
+  });
+  /*mobiscroll.localeKo = {
+    dateFormat: 'yyyy-mm-dd',
+    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    monthNames: [
+      '1월', '2월', '3월', '4월', '5월', '6월',
+      '7월', '8월', '9월', '10월', '11월', '12월'
+    ],
+    monthNamesShort: [
+      '1월', '2월', '3월', '4월', '5월', '6월',
+      '7월', '8월', '9월', '10월', '11월', '12월'
+    ],
+    today: '오늘',
+    cancelText: '취소',
+    setText: '확인'
+  };
+  mobiscroll.datepicker('#dy-birth', {
+    theme: 'ios',
+    display: 'center',
+    dateFormat: 'YYYY-MM-DD',
+    max: new Date(),
+    locale: mobiscroll.localeKo
+  });*/
+  /*jQuery(function($){
     $.datepicker.regional["ko"] = {
       closeText: "닫기",
       prevText: "이전달",
@@ -349,9 +384,19 @@
         if(validateStep(this)) {
           goNext(currentActiveStep);
         }
+      },
+      beforeShow: function(input, inst) {
+        // 모바일 화면에서 Datepicker 위치 강제 조정
+        setTimeout(function() {
+          inst.dpDiv.css({
+            top: $(input).offset().top + $(input).outerHeight(),
+            left: $(input).offset().left,
+            position: "absolute"
+          });
+        }, 0);
       }
     });
-  });
+  });*/
   /*new Pikaday({
     field: document.getElementById('dy-birth'),
     format: 'YYYY-MM-DD', // PHP와 호환 가능한 날짜 형식
