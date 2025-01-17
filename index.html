@@ -339,7 +339,8 @@
     };
     $.datepicker.setDefaults($.datepicker.regional["ko"]);
 
-    /*$("#dy-birth").datepicker({
+    $("#dy-birth").datepicker({
+      showAnim: "slideDown",
       changeMonth: true,
       changeYear: true,
       maxDate: 0 , // 오늘 날짜
@@ -349,9 +350,9 @@
           goNext(currentActiveStep);
         }
       }
-    });*/
+    });
   });
-  new Pikaday({
+  /*new Pikaday({
     field: document.getElementById('dy-birth'),
     format: 'YYYY-MM-DD', // PHP와 호환 가능한 날짜 형식
     i18n: {
@@ -361,7 +362,7 @@
       weekdays: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
       weekdaysShort: ['일', '월', '화', '수', '목', '금', '토']
     }
-  });
+  });*/
   /* 20250115 팝업 */
   /* ---- [팝업 공통 변수] ---------------------------------------------------------- */
   let openModalName = '' // 열린 팝업이름 저장
