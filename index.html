@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<h1>동양저축은행 팝업 예시sdfdsfsdf</h1>
+<h1>동양저축은행 팝업 완성</h1>
 <button class="modal-btn" onclick="openModal('#modla1')">1번 팝업</button>
 <!-- [팝업] 스크래핑(서류 제출 자동화 서비스 이용동의서) -->
 <div id="modla1" class="dy-modal">
@@ -324,6 +324,7 @@
   /* 1. [팝업명] 스크래핑(서류 제출 자동화) 서비스 이용 동의서 : 관련 변수 저장 */
   let currentActiveStep = 'p-step1';
   let fp; // flatpickr 인스턴스를 유지하기 위한 변수
+
   /* 유효성 검사 */
   const stepMapping = {
     1: ['name'],
@@ -347,50 +348,6 @@
 
   /* ---- [팝업 공통 함수] ---------------------------------------------------------- */
   /* 데이트 피커 : flatpickr */
-  let observer;  // MutationObserver를 전역 변수로 추가
-
-  function initializeFlatpickr1() {
-    if (fp) {
-      fp.destroy();  // 기존 인스턴스가 있으면 제거
-      observer.disconnect();  // 기존 observer가 있으면 연결 종료
-    }
-
-    // MutationObserver의 설정
-    const config = { attributes: true, childList: true, subtree: true };
-
-    const callback = function (mutationsList, obs) {
-      for (let mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-          const dyBirthElement = document.querySelector("#dy-birth");
-          if (dyBirthElement) {
-            obs.disconnect();  // 필요 없으면 observer 연결 종료
-
-            // flatpickr 초기화
-            fp = flatpickr("#dy-birth", {
-              dateFormat: "Ymd",
-              minDate: "1900-01-01",
-              maxDate: "today",
-              locale: "ko",
-              onChange: function (selectedDates, dateStr, instance) {
-                const formattedDate = instance.formatDate(selectedDates[0], "Ymd");
-                instance.value = formattedDate;
-                if (validateStep(this)) {
-                  goNext(currentActiveStep);
-                }
-              }
-            });
-          }
-        }
-      }
-    };
-
-    // MutationObserver 인스턴스 생성
-    observer = new MutationObserver(callback);
-
-    // 선택한 DOM 노드에서 변화 감지 시작
-    const targetNode = document.querySelector('tr[data-step="p-step2"]');
-    observer.observe(targetNode, config);
-  }
   function initializeFlatpickr() {
     if (fp) {
       fp.destroy(); // 기존 인스턴스가 있으면 제거
