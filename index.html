@@ -485,7 +485,6 @@
           // 데이터를 resultPopupArgreementData 객체에 저장
           if (inputId === 'dy-birth') {
             const noDashDate = inputElement.value.replace(/-/g, ''); // 모든 - 제거
-            initializeFlatpickr()
             resultPopupArgreementData[`step${i}`][inputs[j]] = noDashDate;
           } else {
             resultPopupArgreementData[`step${i}`][inputs[j]] = inputElement.value;
@@ -510,6 +509,9 @@
       document.querySelectorAll(`ul.dy-num-list li[data-step="${currentActiveStep}"]`).forEach(element => {
         element.classList.add('dy-process-ing');
       });
+      if(nextStep === 3) {
+        initializeFlatpickr();
+      }
       /* step5 일경우 다음에 보여야 할 버튼 : 제출버튼으로 변경 */
       if(nextStep === 5) {
         document.querySelector('#submitAgreement').style.display = 'flex';
