@@ -160,7 +160,7 @@
                             <td>
                                 <div class="dy-td-wrap">
                                     <div class="dy-input-box  size-rgl">
-                                        <input id="dy-birth" class="calendar-ver" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909" readonly/>
+                                        <input id="dy-birth" class="calendar-ver" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>
                                     </div>
                                 </div>
                             </td>
@@ -314,6 +314,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 <script>
   /* 데이트피커 임시 */
   jQuery(function($){
@@ -336,7 +339,7 @@
     };
     $.datepicker.setDefaults($.datepicker.regional["ko"]);
 
-    $("#dy-birth").datepicker({
+    /*$("#dy-birth").datepicker({
       changeMonth: true,
       changeYear: true,
       maxDate: 0 , // 오늘 날짜
@@ -346,7 +349,18 @@
           goNext(currentActiveStep);
         }
       }
-    });
+    });*/
+  });
+  new Pikaday({
+    field: document.getElementById('dy-birth'),
+    format: 'YYYY-MM-DD', // PHP와 호환 가능한 날짜 형식
+    i18n: {
+      previousMonth: '이전 달',
+      nextMonth: '다음 달',
+      months: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      weekdays: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+      weekdaysShort: ['일', '월', '화', '수', '목', '금', '토']
+    }
   });
   /* 20250115 팝업 */
   /* ---- [팝업 공통 변수] ---------------------------------------------------------- */
