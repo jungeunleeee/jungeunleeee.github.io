@@ -398,9 +398,11 @@
   /* 모달창 열기 */
   function openModal (modalName) {
     openModalName = modalName
-    document.querySelector(modalName).style.display = 'flex';
     adjustPopupHeight(modalName);
     document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      document.querySelector(modalName).style.display = 'flex';
+    },10)
   }
   /* 모달창 닫기 */
   function closeModal(modalName) {
