@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.0/l10n/ko.js"></script>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -165,7 +165,7 @@
                                 <div class="dy-td-wrap">
                                     <!--                                        <input id="dy-birth" class="calendar-ver" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="8" placeholder="* 8자리 기입, 예시 : 19990909"/>-->
                                     <label class="dy-input-box  calendar-box size-rgl">
-                                        <input id="dy-birth" class="calendar-ver" type="text"  placeholder="* 8자리 기입, 예시 : 19990909" style="text-align:left!important;-webkit-appearance: none!important;"/>
+                                        <input id="dy-birth" class="calendar-ver" type="text"  placeholder="* 8자리 기입, 예시 : 19990909" style="text-align:left!important;"/>
                                     </label>
                                 </div>
                             </td>
@@ -324,6 +324,9 @@
       minDate: "1900-01-01",     // 최소 날짜
       maxDate: "today",          // 최대 날짜 (오늘까지 선택 가능)
       locale: "ko",              // 한국어 로케일 설정
+      mode: "single", // 기본 모드
+      yearSelectorType: "dropdown", // 드롭다운으로 변경
+      monthSelectorType: "static", // 년도를 선택할 수 있는 드롭다운 메뉴 활성화
       onChange: function(selectedDates, dateStr, instance) {
         // 날짜 형식을 'YYYYMMDD'로 변환
         const formattedDate = instance.formatDate(selectedDates[0], "Ymd");
