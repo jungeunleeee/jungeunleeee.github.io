@@ -329,7 +329,9 @@
   mobiscroll.datepicker('#dy-birth', {
     controls: ['calendar'],       // More info about controls: https://mobiscroll.com/docs/javascript/datepicker/api#opt-controls
     showOnClick: true,           // More info about showOnClick: https://mobiscroll.com/docs/javascript/datepicker/api#opt-showOnClick
-    showOnFocus: true,           // Specify display mode like: display: 'bottom' or omit setting to use default
+    showOnFocus: true,
+    min: new Date(1900,0,1), // 1900년 1월 1일
+    max: new Date(), // 현재 날짜// Specify display mode like: display: 'bottom' or omit setting to use default
   });
   /*mobiscroll.localeKo = {
     dateFormat: 'yyyy-mm-dd',
